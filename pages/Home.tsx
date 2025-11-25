@@ -53,7 +53,7 @@ const Home: React.FC = () => {
                   {/* Image Placeholder */}
                   <div className="w-full aspect-video bg-gray-100 dark:bg-neutral-900 rounded-lg overflow-hidden mb-6 border border-gray-200 dark:border-neutral-800 relative group-hover:border-gray-300 dark:group-hover:border-neutral-700 transition-colors">
                        <img 
-                           src="https://images.unsplash.com/photo-1516062423079-7ca13cdc7f5a?q=80&w=800&auto=format&fit=crop" 
+                           src="https://priscilla-moreira.com/imagens/1.jpg" 
                            alt="Minicurso" 
                            className="w-full h-full object-cover opacity-100 dark:opacity-50 dark:grayscale group-hover:grayscale-0 dark:group-hover:opacity-80 transition-all duration-500"
                        />
@@ -101,7 +101,7 @@ const Home: React.FC = () => {
               {/* Image Placeholder */}
                <div className="relative z-10 w-full aspect-video bg-gray-100 dark:bg-neutral-900 rounded-lg overflow-hidden mb-6 border border-gray-200 dark:border-neutral-800 group-hover:border-gray-300 dark:group-hover:border-neutral-700 transition-colors">
                      <img 
-                        src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=800&auto=format&fit=crop" 
+                        src="https://priscilla-moreira.com/imagens/2.jpg" 
                         alt="Formação" 
                         className="w-full h-full object-cover opacity-100 dark:opacity-40 dark:grayscale group-hover:grayscale-0 dark:group-hover:opacity-80 transition-all duration-500"
                      />
