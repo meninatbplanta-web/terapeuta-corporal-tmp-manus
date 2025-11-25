@@ -18,7 +18,7 @@ const MINICOURSE_MODULE: Module = {
       id: 1,
       courseId: 'minicourse',
       moduleId: 1,
-      title: "Qualquer pessoa pode ser uma terapeuta analista corporal?",
+	      title: "Aula 1 - Introdução",
       releaseDate: "2023-01-01T00:00:00",
       duration: "60:00",
       isLocked: false,
