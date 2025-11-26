@@ -100,13 +100,13 @@ const Home: React.FC = () => {
               </p>
 
               {/* Image Placeholder */}
-               <div className="relative z-10 w-full aspect-video bg-gray-100 dark:bg-neutral-900 rounded-lg overflow-hidden mb-6 border border-gray-200 dark:border-neutral-800 group-hover:border-gray-300 dark:group-hover:border-neutral-700 transition-colors">
+               <Link to="/aula/101" className="relative z-10 block w-full aspect-video bg-gray-100 dark:bg-neutral-900 rounded-lg overflow-hidden mb-6 border border-gray-200 dark:border-neutral-800 group-hover:border-gray-300 dark:group-hover:border-neutral-700 transition-colors">
                      <img 
                         src="https://priscilla-moreira.com/imagens/2.jpg" 
                         alt="Formação" 
                         className="w-full h-full object-cover opacity-100 dark:opacity-40 dark:grayscale group-hover:grayscale-0 dark:group-hover:opacity-80 transition-all duration-500"
                      />
-               </div>
+               </Link>
 
               <div className="border-t border-gray-100 dark:border-neutral-900 pt-6 mb-8 relative z-10 mt-auto">
                 <div className="flex items-center gap-6 text-sm text-gray-500 dark:text-neutral-500">
