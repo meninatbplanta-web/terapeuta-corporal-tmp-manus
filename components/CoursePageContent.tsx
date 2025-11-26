@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
 import { Button } from "../components/ui/button";
 import { Progress } from "../components/ui/progress";
@@ -11,12 +11,27 @@ interface CompletedSection {
 }
 
 const CoursePageContent: React.FC = () => {
-  const [completedSections, setCompletedSections] = useState<CompletedSection>({});
-  const [userPoints, setUserPoints] = useState(0);
-  const [badges, setBadges] = useState<string[]>([]);
+  const [completedSections, setCompletedSections] = useState<CompletedSection>(() => {
+    const saved = localStorage.getItem('lms_completedSections');
+    return saved ? JSON.parse(saved) : {};
+  });
+  const [userPoints, setUserPoints] = useState(() => {
+    const saved = localStorage.getItem('lms_userPoints');
+    return saved ? Number(saved) : 0;
+  });
+  const [badges, setBadges] = useState<string[]>(() => {
+    const saved = localStorage.getItem('lms_badges');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('lms_completedSections', JSON.stringify(completedSections));
+    localStorage.setItem('lms_userPoints', userPoints.toString());
+    localStorage.setItem('lms_badges', JSON.stringify(badges));
+  }, [completedSections, userPoints, badges]);
   const [expandedExercise, setExpandedExercise] = useState<string | null>(null);
 
-  const totalSections = 8;
+  const totalSections = 10;
   const completedCount = Object.values(completedSections).filter(Boolean).length;
   const progressPercentage = (completedCount / totalSections) * 100;
 
@@ -56,6 +71,16 @@ const CoursePageContent: React.FC = () => {
     mestre: { icon: "👑", label: "Mestre", color: "bg-purple-100 text-purple-800" },
   };
 
+  const GamificationStatus = () => (
+    <div className="mt-3 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-neutral-800/50 p-2 rounded border border-slate-100 dark:border-neutral-800">
+      <div className="flex items-center gap-1.5">
+        <Trophy className="w-3.5 h-3.5 text-amber-500" />
+        <span className="font-semibold text-slate-700 dark:text-slate-300">{userPoints} pontos</span>
+      </div>
+      <span>{completedCount} de {totalSections} seções</span>
+    </div>
+  );
+
   return (
     <div className="space-y-12 mt-12">
       {/* Header Info - Simplified for insertion */}
@@ -70,7 +95,7 @@ const CoursePageContent: React.FC = () => {
             <span className="text-sm text-slate-600 dark:text-slate-400">pontos</span>
           </div>
         </div>
-        
+
         {/* Progress Bar */}
         <div className="space-y-2">
           <div className="flex justify-between items-center">
@@ -115,11 +140,31 @@ const CoursePageContent: React.FC = () => {
 
       {/* Main Content Tabs */}
       <Tabs defaultValue="proposito" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800">
-          <TabsTrigger value="proposito">Propósito</TabsTrigger>
-          <TabsTrigger value="principios">Princípios</TabsTrigger>
-          <TabsTrigger value="pilares">Pilares</TabsTrigger>
-          <TabsTrigger value="sinais">Sinais</TabsTrigger>
+        <TabsList className="flex w-full justify-start gap-3 bg-transparent p-0 h-auto overflow-x-auto scrollbar-hide pb-2">
+          <TabsTrigger
+            value="proposito"
+            className="rounded-full px-6 py-2 h-auto text-sm font-medium transition-all duration-200 data-[state=active]:bg-brand-red data-[state=active]:text-white data-[state=active]:shadow-md bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 hover:bg-slate-50 dark:hover:bg-neutral-800"
+          >
+            Propósito
+          </TabsTrigger>
+          <TabsTrigger
+            value="principios"
+            className="rounded-full px-6 py-2 h-auto text-sm font-medium transition-all duration-200 data-[state=active]:bg-brand-red data-[state=active]:text-white data-[state=active]:shadow-md bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 hover:bg-slate-50 dark:hover:bg-neutral-800"
+          >
+            Princípios
+          </TabsTrigger>
+          <TabsTrigger
+            value="pilares"
+            className="rounded-full px-6 py-2 h-auto text-sm font-medium transition-all duration-200 data-[state=active]:bg-brand-red data-[state=active]:text-white data-[state=active]:shadow-md bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 hover:bg-slate-50 dark:hover:bg-neutral-800"
+          >
+            Pilares
+          </TabsTrigger>
+          <TabsTrigger
+            value="sinais"
+            className="rounded-full px-6 py-2 h-auto text-sm font-medium transition-all duration-200 data-[state=active]:bg-brand-red data-[state=active]:text-white data-[state=active]:shadow-md bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 hover:bg-slate-50 dark:hover:bg-neutral-800"
+          >
+            Sinais
+          </TabsTrigger>
         </TabsList>
 
         {/* Propósito Tab */}
@@ -150,9 +195,10 @@ const CoursePageContent: React.FC = () => {
                     </CardHeader>
                     <CardContent>
                       <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">{path.description}</p>
-                      <Button size="sm" variant={completedSections[path.id] ? "default" : "outline"} className="w-full" onClick={(e) => { e.stopPropagation(); toggleSection(path.id); }}>
+                      <Button size="sm" className={`w-full transition-all duration-300 ${completedSections[path.id] ? "bg-green-600 hover:bg-green-700 text-white" : "bg-slate-900 hover:bg-slate-800 text-white shadow-md"}`} onClick={(e) => { e.stopPropagation(); toggleSection(path.id); }}>
                         {completedSections[path.id] ? (<><CheckCircle2 className="w-4 h-4 mr-2" />Compreendido</>) : ("Marcar como completo")}
                       </Button>
+                      <GamificationStatus />
                     </CardContent>
                   </Card>
                 ))}
@@ -196,9 +242,10 @@ const CoursePageContent: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <Button className="w-full mt-6" size="lg" variant={completedSections["principios"] ? "default" : "outline"} onClick={() => toggleSection("principios")}>
+              <Button className={`w-full mt-6 transition-all duration-300 ${completedSections["principios"] ? "bg-green-600 hover:bg-green-700 text-white" : "bg-slate-900 hover:bg-slate-800 text-white shadow-md"}`} size="lg" onClick={() => toggleSection("principios")}>
                 {completedSections["principios"] ? (<><CheckCircle2 className="w-4 h-4 mr-2" />Compreendido</>) : ("Marcar como completo")}
               </Button>
+              <GamificationStatus />
             </CardContent>
           </Card>
         </TabsContent>
@@ -238,9 +285,10 @@ const CoursePageContent: React.FC = () => {
                           <span className="font-semibold">Ponto de Reflexão:</span> {pilar.reflection}
                         </p>
                       </div>
-                      <Button size="sm" variant={completedSections[pilar.id] ? "default" : "outline"} className="w-full" onClick={() => toggleSection(pilar.id)}>
+                      <Button size="sm" className={`w-full transition-all duration-300 ${completedSections[pilar.id] ? "bg-green-600 hover:bg-green-700 text-white" : "bg-slate-900 hover:bg-slate-800 text-white shadow-md"}`} onClick={() => toggleSection(pilar.id)}>
                         {completedSections[pilar.id] ? (<><CheckCircle2 className="w-4 h-4 mr-2" />Compreendido</>) : ("Marcar como completo")}
                       </Button>
+                      <GamificationStatus />
                     </CardContent>
                   </Card>
                 ))}
@@ -311,9 +359,10 @@ const CoursePageContent: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <Button className="w-full mt-6" size="lg" variant={completedSections["sinais"] ? "default" : "outline"} onClick={() => toggleSection("sinais")}>
+              <Button className={`w-full mt-6 transition-all duration-300 ${completedSections["sinais"] ? "bg-green-600 hover:bg-green-700 text-white" : "bg-slate-900 hover:bg-slate-800 text-white shadow-md"}`} size="lg" onClick={() => toggleSection("sinais")}>
                 {completedSections["sinais"] ? (<><CheckCircle2 className="w-4 h-4 mr-2" />Compreendido</>) : ("Marcar como completo")}
               </Button>
+              <GamificationStatus />
             </CardContent>
           </Card>
         </TabsContent>
@@ -374,9 +423,10 @@ const CoursePageContent: React.FC = () => {
                         <p className="text-sm text-blue-900 dark:text-blue-200 font-semibold mb-2">Diário de Bordo:</p>
                         <textarea placeholder="Anote aqui suas observações e sensações durante o exercício..." className="w-full p-3 border border-blue-200 dark:border-blue-800 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-neutral-800 dark:text-white" rows={3} />
                       </div>
-                      <Button className="w-full" onClick={() => toggleSection(exercise.id)} variant={completedSections[exercise.id] ? "default" : "outline"}>
+                      <Button className={`w-full transition-all duration-300 ${completedSections[exercise.id] ? "bg-green-600 hover:bg-green-700 text-white" : "bg-slate-900 hover:bg-slate-800 text-white shadow-md"}`} onClick={() => toggleSection(exercise.id)}>
                         {completedSections[exercise.id] ? (<><CheckCircle2 className="w-4 h-4 mr-2" />Exercício Completo</>) : ("Marcar exercício como completo")}
                       </Button>
+                      <GamificationStatus />
                     </CardContent>
                   )}
                 </Card>

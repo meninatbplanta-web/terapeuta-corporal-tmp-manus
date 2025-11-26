@@ -18,7 +18,7 @@ const MINICOURSE_MODULE: Module = {
       id: 1,
       courseId: 'minicourse',
       moduleId: 1,
-	      title: "Fundamentos da Análise Corporal",
+      title: "Fundamentos da Análise Corporal",
       releaseDate: "2023-01-01T00:00:00",
       duration: "60:00",
       isLocked: false,

@@ -220,20 +220,19 @@ const LessonPlayer: React.FC = () => {
               {isContentUnlocked && currentLessonId !== 1 && (
                 <div>
                   {/* Simplified Tabs for Minicurso */}
-                  <div className="mb-8 border-b border-gray-200 dark:border-neutral-800 overflow-x-auto scrollbar-hide">
-                    <div className="flex gap-8 min-w-max pb-1">
+                  <div className="mb-8 overflow-x-auto scrollbar-hide">
+                    <div className="flex gap-3 min-w-max pb-1">
                       {Object.values(TabOption).map((tab) => (
                         <button
                           key={tab}
                           onClick={() => setActiveTab(tab)}
-                          className={`pb-4 text-sm font-bold uppercase tracking-wide transition-colors relative 
-                                        ${activeTab === tab ? 'text-brand-red' : 'text-gray-500 dark:text-neutral-500 hover:text-gray-900 dark:hover:text-white'}
+                          className={`px-6 py-2 rounded-full font-medium text-sm transition-all duration-200 
+                                        ${activeTab === tab 
+                                          ? 'bg-brand-red text-white shadow-md transform scale-105' 
+                                          : 'bg-white dark:bg-neutral-900 text-gray-600 dark:text-neutral-400 border border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-800 hover:border-gray-300 dark:hover:border-neutral-700'}
                                     `}
                         >
                           {tab}
-                          {activeTab === tab && (
-                            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-brand-red rounded-t-full"></span>
-                          )}
                         </button>
                       ))}
                     </div>
