@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Play, Lock, ChevronLeft, ChevronRight, ChevronDown, ChevronUp, FileText, Video, Mic, BrainCircuit, Layers, BarChart3, FileBarChart, Presentation, HelpCircle } from 'lucide-react';
 import Header from '../components/Header';
 import CoursePageContent from '../components/CoursePageContent';
+import LoginModal from '../components/LoginModal';
 import { isLessonAvailable, formatReleaseDate } from '../constants';
 import { LESSONS, LESSON_CONTENT, ALL_MODULES, COURSES } from '../data/lessons';
 import { TabOption } from '../types';
@@ -12,6 +13,7 @@ const LessonPlayer: React.FC = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabOption>(TabOption.COURSE);
   const [showLockedModal, setShowLockedModal] = useState<string | null>(null);
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   // Sidebar state: which module is expanded?
   // Initialize with the module containing the current lesson
@@ -55,6 +57,12 @@ const LessonPlayer: React.FC = () => {
     // Except for minicourse future lessons which are date-locked.
     if (targetLesson.courseId === 'minicourse' && !isLessonAvailable(targetLesson)) {
       setShowLockedModal(formatReleaseDate(targetLesson.releaseDate || ''));
+      return;
+    }
+
+    // PAYWALL LOGIC: Intercept clicks for Formation course
+    if (targetLesson.courseId === 'formation') {
+      setShowLoginModal(true);
       return;
     }
 
@@ -391,6 +399,7 @@ const LessonPlayer: React.FC = () => {
           </div>
         </main>
       </div>
+      <LoginModal isOpen={showLoginModal} onClose={() => setShowLoginModal(false)} />
     </div>
   );
 };
