@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Play, Lock, ChevronLeft, ChevronRight, ChevronDown, ChevronUp, FileText, Video, Mic, BrainCircuit, Layers, BarChart3, FileBarChart, Presentation, HelpCircle } from 'lucide-react';
+import { Play, Lock, ChevronLeft, ChevronRight, ChevronDown, ChevronUp, FileText, Video, Mic, BrainCircuit, Layers, BarChart3, FileBarChart, Presentation, HelpCircle, Hourglass } from 'lucide-react';
 import Header from '../components/Header';
 import CoursePageContent from '../components/CoursePageContent';
 import LoginModal from '../components/LoginModal';
@@ -268,17 +268,17 @@ const LessonPlayer: React.FC = () => {
         {showLockedModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-fade-in">
             <div className="bg-white dark:bg-brand-black border border-gray-200 dark:border-neutral-800 p-8 rounded-lg shadow-2xl max-w-md w-full text-center">
-              <Lock className="mx-auto text-gray-400 dark:text-neutral-600 mb-4" size={40} />
-              <h3 className="text-xl font-heading font-bold text-gray-900 dark:text-white mb-2">Conteúdo Bloqueado</h3>
+              <Hourglass className="mx-auto text-orange-500 mb-4" size={40} />
+              <h3 className="text-xl font-heading font-bold text-gray-900 dark:text-white mb-2">Segura a ansiedade! 🧡</h3>
               <p className="text-gray-500 dark:text-neutral-400 mb-6">
-                Esta aula será liberada em <br />
-                <span className="text-brand-red font-bold text-lg">{showLockedModal}</span>
+                Estamos preparando tudo com carinho. Esta aula estreia <br />
+                <span className="text-orange-500 font-bold text-lg">{showLockedModal}</span>.
               </p>
               <button
                 onClick={() => setShowLockedModal(null)}
                 className="bg-gray-100 dark:bg-white text-gray-900 dark:text-black hover:bg-gray-200 dark:hover:bg-neutral-200 font-bold py-3 px-8 rounded uppercase tracking-wide transition-colors"
               >
-                Entendido
+                Combinado
               </button>
             </div>
           </div>
