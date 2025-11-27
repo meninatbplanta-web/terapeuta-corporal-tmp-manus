@@ -544,7 +544,7 @@ const CoursePageContent: React.FC = () => {
                         </Button>
                         {completedSections[exercise.id] && (
                           // Check if it's the last activity in the 'exercicios' tab
-                          activityMap.exercicios.indexOf(exercise.id) < activityMap.exercicios.length - 1 && (
+                         activityMap.exercicios.indexOf(exercise.id) < activityMap.exercicios.length - 1 && (
                             <Button
                               size="sm"
                               className="w-full mt-2 bg-brand-red hover:bg-red-700 text-white shadow-md"
@@ -553,7 +553,7 @@ const CoursePageContent: React.FC = () => {
                               👉 Ir para a próxima atividade
                             </Button>
                           )
-                        )}
+                        
                         <GamificationStatus />
                       </CardContent>
                     )}
