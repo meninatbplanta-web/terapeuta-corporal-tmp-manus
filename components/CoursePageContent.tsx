@@ -79,17 +79,7 @@ const CoursePageContent: React.FC = () => {
       }
     }
   };
-    setCompletedSections((prev) => {
-      const newState = { ...prev, [sectionId]: !prev[sectionId] };
-      if (!prev[sectionId]) {
-        setUserPoints((p) => p + 50);
-        checkBadges(newState);
-      } else {
-        setUserPoints((p) => Math.max(0, p - 50));
-      }
-      return newState;
-    });
-  };
+
 
   const checkBadges = (sections: CompletedSection) => {
     const newBadges = [...badges];
