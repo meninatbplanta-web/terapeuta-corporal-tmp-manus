@@ -4,7 +4,7 @@ import { Button } from "../components/ui/button";
 import { Progress } from "../components/ui/progress";
 import { Badge } from "../components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
-import { CheckCircle2, Trophy, Heart, Brain, Shield, Star, Zap, BookOpen, PlayCircle, Headphones, FileText, AlertTriangle, Video } from "lucide-react";
+import { CheckCircle2, Trophy, Heart, Brain, Shield, Star, Zap, BookOpen, PlayCircle, Headphones, FileText, AlertTriangle, Video, HelpCircle } from "lucide-react";
 import { MINICOURSE_MODULE } from "../data/lessons";
 
 interface CompletedSection {
@@ -139,8 +139,6 @@ const CoursePageContent: React.FC = () => {
     }
   };
 
-
-
   const badgeConfig = {
     iniciante: { icon: "🌱", label: "Iniciante", color: "bg-green-100 text-green-800" },
     explorador: { icon: "🔍", label: "Explorador", color: "bg-blue-100 text-blue-800" },
@@ -170,44 +168,52 @@ const CoursePageContent: React.FC = () => {
 
   return (
     <div className="space-y-12 mt-12">
-      {/* Header Info */}
-      <div className="border-b border-gray-200 dark:border-neutral-900 pb-6">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Aula 1: O Raio-X Invisível</h2>
-            <p className="text-slate-500 dark:text-slate-400">O Mapa da Mente Humana</p>
-          </div>
-          <div className="flex items-center gap-3">
-            <Trophy className="w-6 h-6 text-amber-500" />
-            <span className="text-xl font-bold text-slate-900 dark:text-white">{userPoints}</span>
-            <span className="text-sm text-slate-600 dark:text-slate-400">pontos</span>
-          </div>
-        </div>
+      {/* Dashboard Section */}
+      <div className="bg-slate-50 dark:bg-neutral-900/50 rounded-xl p-6 mb-8 border border-slate-100 dark:border-neutral-800">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
 
-        {/* Progress Bar */}
-        <div className="space-y-2">
-          <div className="flex justify-between items-center">
-            <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Progresso do Minicurso</span>
-            <span className="text-sm text-slate-600 dark:text-slate-400">{completedCount} de {totalSections} lições</span>
-          </div>
-          <Progress value={progressPercentage} className="h-2" />
-        </div>
-
-        {/* Certificate Info Alert */}
-        <div className="mt-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 flex items-start gap-3">
-          <Trophy className="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
-          <div className="text-sm text-blue-900 dark:text-blue-100">
-            <p className="font-semibold mb-1">Como funciona a pontuação:</p>
-            <p>Cada seção concluída vale pontos. O <strong>Certificado Gratuito</strong> é liberado automaticamente após a conclusão da <strong>Aula 4</strong>, desde que todas as lições de todas as aulas estejam marcadas como feitas.</p>
-          </div>
-        </div>
-
-        <div className="flex gap-2 mt-4">
-          {badges.map((badge) => (
-            <div key={badge} className={`px-3 py-1 rounded-full text-sm font-medium ${badgeConfig[badge as keyof typeof badgeConfig].color}`}>
-              {badgeConfig[badge as keyof typeof badgeConfig].icon} {badgeConfig[badge as keyof typeof badgeConfig].label}
+          {/* Progress */}
+          <div className="w-full md:w-1/2 space-y-2">
+            <div className="flex justify-between items-center text-sm">
+              <span className="font-bold text-slate-700 dark:text-slate-300">Seu Progresso</span>
+              <span className="text-slate-500">{completedCount} de {totalSections} atividades</span>
             </div>
-          ))}
+            <Progress value={progressPercentage} className="h-3 rounded-full bg-slate-200 dark:bg-neutral-800" />
+          </div>
+
+          {/* Points */}
+          <div className="flex items-center gap-3 bg-white dark:bg-black px-4 py-2 rounded-lg border border-slate-200 dark:border-neutral-800 shadow-sm">
+            <div className="p-2 bg-amber-100 dark:bg-amber-900/30 rounded-full">
+              <Trophy className="w-5 h-5 text-amber-600 dark:text-amber-500" />
+            </div>
+            <div>
+              <span className="block text-xs text-slate-500 uppercase font-bold">Pontuação</span>
+              <span className="block text-xl font-bold text-slate-900 dark:text-white">{userPoints} XP</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Badges & Info */}
+        <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between border-t border-slate-200 dark:border-neutral-800 pt-4">
+
+          {/* Badges */}
+          <div className="flex flex-wrap gap-2">
+            {badges.length === 0 && <span className="text-sm text-slate-400 italic">Complete atividades para ganhar medalhas!</span>}
+            {badges.map((badge) => (
+              <div key={badge} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide shadow-sm border ${badgeConfig[badge as keyof typeof badgeConfig].color} border-current/20`}>
+                <span>{badgeConfig[badge as keyof typeof badgeConfig].icon}</span>
+                <span>{badgeConfig[badge as keyof typeof badgeConfig].label}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Mini Info */}
+          <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 bg-blue-50 dark:bg-blue-900/10 px-3 py-2 rounded border border-blue-100 dark:border-blue-900/20 max-w-md">
+            <HelpCircle className="w-4 h-4 text-blue-500 flex-shrink-0" />
+            <p>
+              Complete todas as lições até a <strong>Aula 4</strong> para liberar seu <strong className="text-blue-600 dark:text-blue-400">Certificado Gratuito</strong>.
+            </p>
+          </div>
         </div>
       </div>
 

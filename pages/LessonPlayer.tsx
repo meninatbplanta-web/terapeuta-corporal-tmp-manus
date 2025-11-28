@@ -238,6 +238,16 @@ const LessonPlayer: React.FC = () => {
 
             {/* Content Area */}
             <div className="bg-white dark:bg-brand-black border border-gray-200 dark:border-neutral-900 p-6 md:p-10 rounded-lg shadow-sm transition-colors duration-300">
+
+              <div className="mb-8 border-b border-gray-100 dark:border-neutral-800 pb-6">
+                <h1 className="text-3xl md:text-4xl font-heading font-bold text-slate-900 dark:text-white mb-2">
+                  Aula 1: O Raio-X Invisível
+                </h1>
+                <p className="text-xl text-slate-500 dark:text-slate-400">
+                  O Mapa da Mente Humana
+                </p>
+              </div>
+
               {/* Welcome Box */}
               <div className="bg-gradient-to-r from-blue-900 to-slate-900 text-white p-6 rounded-xl shadow-lg mb-6 border-l-4 border-brand-red relative overflow-hidden">
                 <div className="relative z-10">
