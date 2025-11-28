@@ -29,8 +29,6 @@ const CoursePageContent: React.FC = () => {
   const [expandedExercise, setExpandedExercise] = useState<string | null>(null);
   const [quizAnswers, setQuizAnswers] = useState<Record<number, string>>({});
   const [quizResult, setQuizResult] = useState<string | null>(null);
-  const [showAudio, setShowAudio] = useState(false);
-  const [showVideoSummary, setShowVideoSummary] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('lms_completedSections', JSON.stringify(completedSections));
@@ -204,20 +202,17 @@ const CoursePageContent: React.FC = () => {
       </section>
 
       {/* Multimedia Section */}
-      <div className="grid md:grid-cols-2 gap-4">
+      {/* Multimedia Section */}
+      <div className="grid md:grid-cols-2 gap-4 mb-8">
         <Card className="bg-slate-50 dark:bg-neutral-900 border-slate-200 dark:border-neutral-800">
           <CardContent className="p-4 flex flex-col items-center text-center gap-2">
             <Headphones className="w-8 h-8 text-blue-500" />
             <h3 className="font-bold text-slate-900 dark:text-white">Resumo em Áudio</h3>
             <p className="text-xs text-slate-500">Para ouvir no trânsito (12 min)</p>
-            {showAudio ? (
-              <audio controls autoPlay className="w-full mt-2 h-8">
-                <source src="https://priscilla-moreira.com/imagens/audio-cpl1.m4a" type="audio/mp4" />
-                Seu navegador não suporta áudio.
-              </audio>
-            ) : (
-              <Button variant="outline" size="sm" className="w-full mt-2" onClick={() => setShowAudio(true)}>Ouvir</Button>
-            )}
+            <audio controls className="w-full mt-2 h-8">
+              <source src="https://priscilla-moreira.com/imagens/audio-cpl1.m4a" type="audio/mp4" />
+              Seu navegador não suporta áudio.
+            </audio>
           </CardContent>
         </Card>
         <Card className="bg-slate-50 dark:bg-neutral-900 border-slate-200 dark:border-neutral-800">
@@ -225,27 +220,21 @@ const CoursePageContent: React.FC = () => {
             <Video className="w-8 h-8 text-green-500" />
             <h3 className="font-bold text-slate-900 dark:text-white">Resumo em Vídeo</h3>
             <p className="text-xs text-slate-500">O Guia das Armaduras</p>
-            <Button variant="outline" size="sm" className="w-full mt-2" onClick={() => setShowVideoSummary(!showVideoSummary)}>
-              {showVideoSummary ? "Fechar Vídeo" : "Assistir"}
-            </Button>
           </CardContent>
         </Card>
       </div>
 
       {/* Inline Video Summary Player */}
-      <div className={`overflow-hidden transition-all duration-500 ease-in-out ${showVideoSummary ? 'max-h-[600px] opacity-100 mb-8' : 'max-h-0 opacity-0'}`}>
+      <div className="overflow-hidden mb-8">
         <div className="bg-black rounded-xl border border-gray-200 dark:border-neutral-800 shadow-2xl overflow-hidden">
           <div className="aspect-video w-full">
-            {showVideoSummary && (
-              <video controls className="w-full h-full" autoPlay>
-                <source src="https://priscilla-moreira.com/imagens/video-cpl1.mp4" type="video/mp4" />
-                Seu navegador não suporta vídeo.
-              </video>
-            )}
+            <video controls className="w-full h-full">
+              <source src="https://priscilla-moreira.com/imagens/video-cpl1.mp4" type="video/mp4" />
+              Seu navegador não suporta vídeo.
+            </video>
           </div>
           <div className="p-4 bg-gray-100 dark:bg-neutral-900 flex justify-between items-center">
             <span className="font-bold text-slate-900 dark:text-white">Resumo: O Guia das Armaduras</span>
-            <Button variant="ghost" size="sm" onClick={() => setShowVideoSummary(false)}>Fechar</Button>
           </div>
         </div>
       </div>
