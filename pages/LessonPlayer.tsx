@@ -136,16 +136,25 @@ const LessonPlayer: React.FC = () => {
   const renderVideoSection = () => (
     <div id="video-section" className="w-full aspect-video bg-black rounded-xl border border-gray-200 dark:border-neutral-800 mb-8 relative overflow-hidden shadow-2xl">
       {isContentUnlocked ? (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-neutral-900 group cursor-pointer transition-colors duration-300">
-          <div className="w-20 h-20 bg-brand-red rounded-full flex items-center justify-center pl-1 shadow-lg group-hover:scale-110 transition-transform">
-            <Play size={32} fill="white" className="text-white" />
+        <div className="absolute inset-0 bg-black group cursor-pointer transition-colors duration-300">
+          <iframe
+            width="100%"
+            height="100%"
+            src="https://www.youtube.com/embed/zLz7AYdBoGU"
+            title="Vídeo Demonstrativo"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full h-full"
+          ></iframe>
+
+          {/* Premiere Mask */}
+          <div className="absolute inset-0 flex items-center justify-center bg-black/80 z-10 pointer-events-none">
+            <div className="text-center">
+              <h3 className="text-2xl font-heading font-bold text-white mb-2">ESTREIA</h3>
+              <p className="text-xl text-brand-red font-bold">DIA 01/12 às 20hs</p>
+            </div>
           </div>
-          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-300 dark:bg-neutral-800">
-            <div className="h-full w-1/4 bg-brand-red"></div>
-          </div>
-          <span className="absolute bottom-4 left-4 text-sm font-mono bg-black/50 text-white px-2 py-1 rounded">
-            Vídeo Demonstrativo: {currentLesson.title}
-          </span>
         </div>
       ) : (
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 dark:bg-neutral-950 text-center p-6 transition-colors duration-300">
@@ -229,7 +238,39 @@ const LessonPlayer: React.FC = () => {
 
             {/* Content Area */}
             <div className="bg-white dark:bg-brand-black border border-gray-200 dark:border-neutral-900 p-6 md:p-10 rounded-lg shadow-sm transition-colors duration-300">
+              {/* Welcome Box */}
+              <div className="bg-gradient-to-r from-blue-900 to-slate-900 text-white p-6 rounded-xl shadow-lg mb-6 border-l-4 border-brand-red relative overflow-hidden">
+                <div className="relative z-10">
+                  <h2 className="text-2xl font-bold mb-3">Bem-vindo ao mundo que ninguém te contou que existia.</h2>
+                  <p className="text-gray-200 mb-4 leading-relaxed">
+                    Você está prestes a receber a <strong className="text-brand-red">Chave Mestra</strong> da mente humana. Uma habilidade que mudará para sempre a forma como você enxerga as pessoas.
+                  </p>
+                  <p className="text-gray-200 mb-4 leading-relaxed">
+                    Imagine olhar para qualquer um e — sem que seja dita uma única palavra — saber exatamente como aquela pessoa pensa, sente e age. O <strong>Raio-X Invisível</strong> não é apenas teoria; é o poder de ler a mente através do corpo.
+                  </p>
+                  <p className="font-bold text-white">
+                    Prepare-se: depois dessa aula, você nunca mais conseguirá "desver" a verdade.
+                  </p>
+                </div>
+              </div>
+
+              {/* Premiere Notice */}
+              <div className="flex items-center justify-center gap-2 text-brand-red font-bold mb-6 bg-red-50 dark:bg-red-900/10 p-3 rounded-lg border border-red-100 dark:border-red-900/20">
+                <Lock size={20} />
+                <span>ESTREIA EXCLUSIVA: 01/12 às 20h — A aula com Priscilla Moreira será liberada aqui neste horário. Agende-se.</span>
+              </div>
+
               {renderVideoSection()}
+
+              {/* CTA Below Video */}
+              <div className="mb-8 p-6 bg-slate-50 dark:bg-neutral-900/50 rounded-xl border border-slate-200 dark:border-neutral-800">
+                <h3 className="font-heading font-bold text-xl text-slate-900 dark:text-white mb-2">
+                  Não espere: Comece a usar a Chave Mestra agora.
+                </h3>
+                <p className="text-slate-600 dark:text-slate-400">
+                  Enquanto a estreia não acontece, você tem acesso antecipado aos nossos arquivos confidenciais. Acesse o <strong>Resumo da Aula</strong> e estude os <strong>Traços de Caráter</strong> nos botões abaixo para chegar na aula com vantagem total.
+                </p>
+              </div>
 
               {/* Conteúdo da Aula 1 - Inserido do repositório analise-corporal-page */}
               {currentLessonId === 1 && <CoursePageContent />}
