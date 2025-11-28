@@ -178,16 +178,33 @@ const CoursePageContent: React.FC = () => {
         </div>
       </div>
 
-      {/* Multimedia Section */}
-      <div className="grid md:grid-cols-3 gap-4">
-        <Card className="bg-slate-50 dark:bg-neutral-900 border-slate-200 dark:border-neutral-800">
-          <CardContent className="p-4 flex flex-col items-center text-center gap-2">
-            <PlayCircle className="w-8 h-8 text-brand-red" />
-            <h3 className="font-bold text-slate-900 dark:text-white">Aula Completa</h3>
-            <p className="text-xs text-slate-500">O Corpo Não Mente (60 min)</p>
-            <Button variant="outline" size="sm" className="w-full mt-2" onClick={() => document.getElementById('video-section')?.scrollIntoView({ behavior: 'smooth' })}>Assistir</Button>
+      {/* Intro Section */}
+      <section>
+        <Card className="border-0 shadow-lg bg-white dark:bg-neutral-900">
+          <CardHeader className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-t-lg">
+            <div className="flex items-start gap-3">
+              <Zap className="w-6 h-6 mt-1 flex-shrink-0" />
+              <div>
+                <CardTitle className="text-2xl">Bem-vindo à Visão de Raio-X</CardTitle>
+                <CardDescription className="text-blue-100 mt-2">
+                  "Eu não tenho bola de cristal. Eu tenho técnica."
+                </CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className="pt-6">
+            <p className="text-slate-700 dark:text-slate-300 leading-relaxed mb-4">
+              Nesta aula, você descobriu que ler pessoas não é um dom sobrenatural. O formato do corpo humano é determinado por um processo biológico chamado mielinização da medula espinhal.
+            </p>
+            <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+              Tudo o que você viveu, desde o útero até os 5 anos de idade, moldou o corpo que você tem hoje. O seu corpo é uma armadura criada para proteger a sua mente das dores que você sentiu na infância.
+            </p>
           </CardContent>
         </Card>
+      </section>
+
+      {/* Multimedia Section */}
+      <div className="grid md:grid-cols-2 gap-4">
         <Card className="bg-slate-50 dark:bg-neutral-900 border-slate-200 dark:border-neutral-800">
           <CardContent className="p-4 flex flex-col items-center text-center gap-2">
             <Headphones className="w-8 h-8 text-blue-500" />
@@ -232,31 +249,6 @@ const CoursePageContent: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* Intro Section */}
-      <section>
-        <Card className="border-0 shadow-lg bg-white dark:bg-neutral-900">
-          <CardHeader className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-t-lg">
-            <div className="flex items-start gap-3">
-              <Zap className="w-6 h-6 mt-1 flex-shrink-0" />
-              <div>
-                <CardTitle className="text-2xl">Bem-vindo à Visão de Raio-X</CardTitle>
-                <CardDescription className="text-blue-100 mt-2">
-                  "Eu não tenho bola de cristal. Eu tenho técnica."
-                </CardDescription>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent className="pt-6">
-            <p className="text-slate-700 dark:text-slate-300 leading-relaxed mb-4">
-              Nesta aula, você descobriu que ler pessoas não é um dom sobrenatural. O formato do corpo humano é determinado por um processo biológico chamado mielinização da medula espinhal.
-            </p>
-            <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
-              Tudo o que você viveu, desde o útero até os 5 anos de idade, moldou o corpo que você tem hoje. O seu corpo é uma armadura criada para proteger a sua mente das dores que você sentiu na infância.
-            </p>
-          </CardContent>
-        </Card>
-      </section>
 
       {/* Main Content Tabs */}
       <Tabs ref={tabsRef} value={activeTab} onValueChange={setActiveTab} className="space-y-6">
