@@ -115,6 +115,28 @@ const CoursePageContent: React.FC = () => {
     }
   };
 
+  const scrollToSection = (sectionId: string, tabId?: string) => {
+    if (tabId && tabId !== activeTab) {
+      setActiveTab(tabId);
+      // Wait for tab switch animation/render
+      setTimeout(() => {
+        const element = document.getElementById(sectionId) || cardRefs.current[sectionId];
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          element.classList.add('highlight-card');
+          setTimeout(() => element.classList.remove('highlight-card'), 1500);
+        }
+      }, 300);
+    } else {
+      const element = document.getElementById(sectionId) || cardRefs.current[sectionId];
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        element.classList.add('highlight-card');
+        setTimeout(() => element.classList.remove('highlight-card'), 1500);
+      }
+    }
+  };
+
   const checkBadges = (sections: CompletedSection) => {
     const newBadges = [...badges];
     const completedCount = Object.values(sections).filter(Boolean).length;
@@ -177,6 +199,16 @@ const CoursePageContent: React.FC = () => {
           </div>
           <Progress value={progressPercentage} className="h-2" />
         </div>
+
+        {/* Certificate Info Alert */}
+        <div className="mt-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 flex items-start gap-3">
+          <Trophy className="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
+          <div className="text-sm text-blue-900 dark:text-blue-100">
+            <p className="font-semibold mb-1">Como funciona a pontuação:</p>
+            <p>Cada seção concluída vale pontos. O <strong>Certificado Gratuito</strong> é liberado automaticamente após a conclusão da <strong>Aula 4</strong>, desde que todas as lições de todas as aulas estejam marcadas como feitas.</p>
+          </div>
+        </div>
+
         <div className="flex gap-2 mt-4">
           {badges.map((badge) => (
             <div key={badge} className={`px-3 py-1 rounded-full text-sm font-medium ${badgeConfig[badge as keyof typeof badgeConfig].color}`}>
@@ -211,31 +243,31 @@ const CoursePageContent: React.FC = () => {
         </Card>
       </section>
 
-      {/* Lesson Index Section */}
+      {/* Content Index Section */}
       <section className="py-4">
         <div className="flex items-center justify-between mb-2 px-1">
-          <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Índice das Lições</h3>
+          <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Nessa aula você vai encontrar:</h3>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-          {MINICOURSE_MODULE.lessons.map((lesson) => (
-            <a
-              key={lesson.id}
-              href={`#/aula/${lesson.id}`}
-              className={`
-                        flex flex-col p-3 rounded-lg border transition-all duration-200
-                        ${lesson.id === 1
-                  ? 'bg-blue-50 border-blue-200 dark:bg-blue-900/20 dark:border-blue-800 ring-1 ring-blue-500/20'
-                  : 'bg-white border-slate-200 dark:bg-neutral-900 dark:border-neutral-800 hover:border-blue-300 dark:hover:border-blue-700'
-                }
-                    `}
+          {[
+            { label: "Resumo em Áudio", icon: Headphones, action: () => scrollToSection("audio_summary") },
+            { label: "Resumo em Vídeo", icon: Video, action: () => scrollToSection("video_summary") },
+            { label: "Fundamentos", icon: BookOpen, action: () => scrollToSection("fundamentos_1", "fundamentos") },
+            { label: "Traços de Caráter", icon: Brain, action: () => scrollToSection("esquizoide", "tracos_carater") },
+            { label: "Alerta Saúde", icon: AlertTriangle, action: () => scrollToSection("alerta_saude_content", "alerta_saude") },
+            { label: "Dever de Casa", icon: FileText, action: () => scrollToSection("exercises-section") },
+            { label: "Teste seu Conhecimento", icon: CheckCircle2, action: () => scrollToSection("quiz-section") },
+          ].map((item, index) => (
+            <button
+              key={index}
+              onClick={item.action}
+              className="flex flex-col items-center justify-center p-3 rounded-lg border bg-white border-slate-200 dark:bg-neutral-900 dark:border-neutral-800 hover:border-blue-300 dark:hover:border-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 gap-2 text-center h-full"
             >
-              <span className={`text-xs font-bold mb-1 ${lesson.id === 1 ? 'text-blue-600 dark:text-blue-400' : 'text-slate-500'}`}>
-                AULA {lesson.id}
+              <item.icon className="w-5 h-5 text-blue-500" />
+              <span className="text-xs font-medium text-slate-700 dark:text-slate-300 leading-tight">
+                {item.label}
               </span>
-              <span className={`text-sm font-medium leading-tight line-clamp-2 ${lesson.id === 1 ? 'text-blue-900 dark:text-blue-100' : 'text-slate-700 dark:text-slate-300'}`}>
-                {lesson.title}
-              </span>
-            </a>
+            </button>
           ))}
         </div>
       </section>
