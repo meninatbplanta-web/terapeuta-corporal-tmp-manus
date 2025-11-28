@@ -5,6 +5,7 @@ import { Progress } from "../components/ui/progress";
 import { Badge } from "../components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
 import { CheckCircle2, Trophy, Heart, Brain, Shield, Star, Zap, BookOpen, PlayCircle, Headphones, FileText, AlertTriangle, Video } from "lucide-react";
+import { MINICOURSE_MODULE } from "../data/lessons";
 
 interface CompletedSection {
   [key: string]: boolean;
@@ -137,7 +138,7 @@ const CoursePageContent: React.FC = () => {
         <Trophy className="w-3.5 h-3.5 text-amber-500" />
         <span className="font-semibold text-slate-700 dark:text-slate-300">{userPoints} pontos</span>
       </div>
-      <span>{completedCount} de {totalSections} seções</span>
+      <span> | {completedCount} de {totalSections} lições</span>
     </div>
   );
 
@@ -172,7 +173,7 @@ const CoursePageContent: React.FC = () => {
         <div className="space-y-2">
           <div className="flex justify-between items-center">
             <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Progresso do Minicurso</span>
-            <span className="text-sm text-slate-600 dark:text-slate-400">{completedCount} de {totalSections} seções</span>
+            <span className="text-sm text-slate-600 dark:text-slate-400">{completedCount} de {totalSections} lições</span>
           </div>
           <Progress value={progressPercentage} className="h-2" />
         </div>
@@ -208,6 +209,35 @@ const CoursePageContent: React.FC = () => {
             </p>
           </CardContent>
         </Card>
+      </section>
+
+      {/* Lesson Index Section */}
+      <section className="py-4">
+        <div className="flex items-center justify-between mb-2 px-1">
+          <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Índice das Lições</h3>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+          {MINICOURSE_MODULE.lessons.map((lesson) => (
+            <a
+              key={lesson.id}
+              href={`#/aula/${lesson.id}`}
+              className={`
+                        flex flex-col p-3 rounded-lg border transition-all duration-200
+                        ${lesson.id === 1
+                  ? 'bg-blue-50 border-blue-200 dark:bg-blue-900/20 dark:border-blue-800 ring-1 ring-blue-500/20'
+                  : 'bg-white border-slate-200 dark:bg-neutral-900 dark:border-neutral-800 hover:border-blue-300 dark:hover:border-blue-700'
+                }
+                    `}
+            >
+              <span className={`text-xs font-bold mb-1 ${lesson.id === 1 ? 'text-blue-600 dark:text-blue-400' : 'text-slate-500'}`}>
+                AULA {lesson.id}
+              </span>
+              <span className={`text-sm font-medium leading-tight line-clamp-2 ${lesson.id === 1 ? 'text-blue-900 dark:text-blue-100' : 'text-slate-700 dark:text-slate-300'}`}>
+                {lesson.title}
+              </span>
+            </a>
+          ))}
+        </div>
       </section>
 
       {/* Multimedia Section */}

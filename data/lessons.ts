@@ -9,7 +9,7 @@ const getRandomDuration = () => {
 };
 
 // --- MINICURSO DATA ---
-const MINICOURSE_MODULE: Module = {
+export const MINICOURSE_MODULE: Module = {
   id: 1,
   courseId: 'minicourse',
   title: 'Minicurso Gratuito',
