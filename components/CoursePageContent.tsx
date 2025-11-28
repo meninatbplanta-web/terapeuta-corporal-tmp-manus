@@ -4,7 +4,7 @@ import { Button } from "../components/ui/button";
 import { Progress } from "../components/ui/progress";
 import { Badge } from "../components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
-import { CheckCircle2, Trophy, Heart, Brain, Shield, Star, Zap, BookOpen, PlayCircle, Headphones, FileText, AlertTriangle } from "lucide-react";
+import { CheckCircle2, Trophy, Heart, Brain, Shield, Star, Zap, BookOpen, PlayCircle, Headphones, FileText, AlertTriangle, Video } from "lucide-react";
 
 interface CompletedSection {
   [key: string]: boolean;
@@ -29,6 +29,7 @@ const CoursePageContent: React.FC = () => {
   const [expandedExercise, setExpandedExercise] = useState<string | null>(null);
   const [quizAnswers, setQuizAnswers] = useState<Record<number, string>>({});
   const [quizResult, setQuizResult] = useState<string | null>(null);
+  const [showAudio, setShowAudio] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('lms_completedSections', JSON.stringify(completedSections));
@@ -183,23 +184,30 @@ const CoursePageContent: React.FC = () => {
             <PlayCircle className="w-8 h-8 text-brand-red" />
             <h3 className="font-bold text-slate-900 dark:text-white">Aula Completa</h3>
             <p className="text-xs text-slate-500">O Corpo Não Mente (60 min)</p>
-            <Button variant="outline" size="sm" className="w-full mt-2">Assistir</Button>
+            <Button variant="outline" size="sm" className="w-full mt-2" onClick={() => document.getElementById('video-section')?.scrollIntoView({ behavior: 'smooth' })}>Assistir</Button>
           </CardContent>
         </Card>
         <Card className="bg-slate-50 dark:bg-neutral-900 border-slate-200 dark:border-neutral-800">
           <CardContent className="p-4 flex flex-col items-center text-center gap-2">
             <Headphones className="w-8 h-8 text-blue-500" />
             <h3 className="font-bold text-slate-900 dark:text-white">Resumo em Áudio</h3>
-            <p className="text-xs text-slate-500">Para ouvir no trânsito (15 min)</p>
-            <Button variant="outline" size="sm" className="w-full mt-2">Ouvir</Button>
+            <p className="text-xs text-slate-500">Para ouvir no trânsito (12 min)</p>
+            {showAudio ? (
+              <audio controls autoPlay className="w-full mt-2 h-8">
+                <source src="https://priscilla-moreira.com/imagens/audio-cpl1.m4a" type="audio/mp4" />
+                Seu navegador não suporta áudio.
+              </audio>
+            ) : (
+              <Button variant="outline" size="sm" className="w-full mt-2" onClick={() => setShowAudio(true)}>Ouvir</Button>
+            )}
           </CardContent>
         </Card>
         <Card className="bg-slate-50 dark:bg-neutral-900 border-slate-200 dark:border-neutral-800">
           <CardContent className="p-4 flex flex-col items-center text-center gap-2">
-            <FileText className="w-8 h-8 text-green-500" />
-            <h3 className="font-bold text-slate-900 dark:text-white">PDF Visual</h3>
+            <Video className="w-8 h-8 text-green-500" />
+            <h3 className="font-bold text-slate-900 dark:text-white">Resumo em Vídeo</h3>
             <p className="text-xs text-slate-500">O Guia das Armaduras</p>
-            <Button variant="outline" size="sm" className="w-full mt-2">Baixar Resumo</Button>
+            <Button variant="outline" size="sm" className="w-full mt-2" onClick={() => window.open('https://priscilla-moreira.com/imagens/video-cpl1.mp4', '_blank')}>Assistir</Button>
           </CardContent>
         </Card>
       </div>

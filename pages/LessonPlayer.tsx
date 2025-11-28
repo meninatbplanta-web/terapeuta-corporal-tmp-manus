@@ -134,7 +134,7 @@ const LessonPlayer: React.FC = () => {
   };
 
   const renderVideoSection = () => (
-    <div className="w-full aspect-video bg-black rounded-xl border border-gray-200 dark:border-neutral-800 mb-8 relative overflow-hidden shadow-2xl">
+    <div id="video-section" className="w-full aspect-video bg-black rounded-xl border border-gray-200 dark:border-neutral-800 mb-8 relative overflow-hidden shadow-2xl">
       {isContentUnlocked ? (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-neutral-900 group cursor-pointer transition-colors duration-300">
           <div className="w-20 h-20 bg-brand-red rounded-full flex items-center justify-center pl-1 shadow-lg group-hover:scale-110 transition-transform">
