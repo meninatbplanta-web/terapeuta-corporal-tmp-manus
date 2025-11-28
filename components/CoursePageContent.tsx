@@ -18,10 +18,6 @@ const CoursePageContent: React.FC = () => {
     const saved = localStorage.getItem('lms_completedSections');
     return saved ? JSON.parse(saved) : {};
   });
-  const [userPoints, setUserPoints] = useState(() => {
-    const saved = localStorage.getItem('lms_userPoints');
-    return saved ? Number(saved) : 0;
-  });
   const [badges, setBadges] = useState<string[]>(() => {
     const saved = localStorage.getItem('lms_badges');
     return saved ? JSON.parse(saved) : [];
@@ -31,11 +27,29 @@ const CoursePageContent: React.FC = () => {
   const [quizAnswers, setQuizAnswers] = useState<Record<number, string>>({});
   const [quizResult, setQuizResult] = useState<string | null>(null);
 
+  const completedCount = Object.values(completedSections).filter(Boolean).length;
+  const userPoints = completedCount * 50;
+  const totalSections = 11; // Total de itens pontuáveis
+  const progressPercentage = (completedCount / totalSections) * 100;
+
   useEffect(() => {
     localStorage.setItem('lms_completedSections', JSON.stringify(completedSections));
     localStorage.setItem('lms_userPoints', userPoints.toString());
     localStorage.setItem('lms_badges', JSON.stringify(badges));
   }, [completedSections, userPoints, badges]);
+
+  useEffect(() => {
+    const newBadges = [...badges];
+    let hasChanges = false;
+
+    if (completedCount >= 3 && !newBadges.includes("iniciante")) { newBadges.push("iniciante"); hasChanges = true; }
+    if (completedCount >= 6 && !newBadges.includes("explorador")) { newBadges.push("explorador"); hasChanges = true; }
+    if (completedCount === totalSections && !newBadges.includes("mestre")) { newBadges.push("mestre"); hasChanges = true; }
+
+    if (hasChanges) {
+      setBadges(newBadges);
+    }
+  }, [completedCount, badges]);
 
   // Mapeamento das atividades por aba para controle de navegação
   const activityMap: Record<string, string[]> = {
@@ -46,21 +60,9 @@ const CoursePageContent: React.FC = () => {
     exercicios: ["ex_analise"],
   };
 
-  const totalSections = 11; // Total de itens pontuáveis
-  const completedCount = Object.values(completedSections).filter(Boolean).length;
-  const progressPercentage = (completedCount / totalSections) * 100;
-
   const toggleSection = (sectionId: string) => {
-    setCompletedSections((prev) => {
-      const newState = { ...prev, [sectionId]: !prev[sectionId] };
-      if (!prev[sectionId]) {
-        setUserPoints((p) => p + 50);
-        checkBadges(newState);
-      } else {
-        setUserPoints((p) => Math.max(0, p - 50));
-      }
-      return newState;
-    });
+    if (completedSections[sectionId]) return; // Prevent unmarking
+    setCompletedSections((prev) => ({ ...prev, [sectionId]: true }));
   };
 
   const tabOrder = ['intro', 'fundamentos', 'tracos_carater', 'alerta_saude'];
@@ -137,16 +139,7 @@ const CoursePageContent: React.FC = () => {
     }
   };
 
-  const checkBadges = (sections: CompletedSection) => {
-    const newBadges = [...badges];
-    const completedCount = Object.values(sections).filter(Boolean).length;
 
-    if (completedCount >= 3 && !newBadges.includes("iniciante")) newBadges.push("iniciante");
-    if (completedCount >= 6 && !newBadges.includes("explorador")) newBadges.push("explorador");
-    if (completedCount === totalSections && !newBadges.includes("mestre")) newBadges.push("mestre");
-
-    setBadges(newBadges);
-  };
 
   const badgeConfig = {
     iniciante: { icon: "🌱", label: "Iniciante", color: "bg-green-100 text-green-800" },
@@ -559,6 +552,28 @@ const CoursePageContent: React.FC = () => {
           </CardContent>
         </Card>
       </section>
+
+      {/* Footer Progress & Points */}
+      <div className="border-t border-gray-200 dark:border-neutral-800 pt-6 pb-8">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white">Progresso do Minicurso</h3>
+            <p className="text-sm text-slate-500 dark:text-slate-400">Continue assim para conquistar seu certificado!</p>
+          </div>
+          <div className="flex items-center gap-3">
+            <Trophy className="w-6 h-6 text-amber-500" />
+            <span className="text-xl font-bold text-slate-900 dark:text-white">{userPoints}</span>
+            <span className="text-sm text-slate-600 dark:text-slate-400">pontos</span>
+          </div>
+        </div>
+        <div className="space-y-2">
+          <div className="flex justify-between items-center">
+            <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{completedCount} de {totalSections} lições</span>
+            <span className="text-sm text-slate-600 dark:text-slate-400">{Math.round(progressPercentage)}%</span>
+          </div>
+          <Progress value={progressPercentage} className="h-2" />
+        </div>
+      </div>
 
       {/* Final Celebration */}
       {progressPercentage === 100 && (
