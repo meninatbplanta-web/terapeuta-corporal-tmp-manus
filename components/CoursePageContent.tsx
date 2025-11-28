@@ -38,13 +38,14 @@ const CoursePageContent: React.FC = () => {
 
   // Mapeamento das atividades por aba para controle de navegação
   const activityMap: Record<string, string[]> = {
+    intro: ["audio_summary", "video_summary"],
     fundamentos: ["fundamentos_1"],
     tracos_carater: ["esquizoide", "oral", "psicopata", "masoquista", "rigido"],
     alerta_saude: ["alerta_saude_content"],
     exercicios: ["ex_analise"],
   };
 
-  const totalSections = 9; // Total de itens pontuáveis
+  const totalSections = 11; // Total de itens pontuáveis
   const completedCount = Object.values(completedSections).filter(Boolean).length;
   const progressPercentage = (completedCount / totalSections) * 100;
 
@@ -61,7 +62,7 @@ const CoursePageContent: React.FC = () => {
     });
   };
 
-  const tabOrder = ['fundamentos', 'tracos_carater', 'alerta_saude'];
+  const tabOrder = ['intro', 'fundamentos', 'tracos_carater', 'alerta_saude'];
 
   const handleGoToNext = (currentId: string, tabId: string) => {
     const tabActivities = activityMap[tabId];
@@ -82,15 +83,23 @@ const CoursePageContent: React.FC = () => {
       const currentTabIndex = tabOrder.findIndex(tab => tab === tabId);
       if (currentTabIndex !== -1 && currentTabIndex < tabOrder.length - 1) {
         const nextTab = tabOrder[currentTabIndex + 1];
-        setActiveTab(nextTab);
+        // Only switch tab if it's a real tab (not intro)
+        if (nextTab !== 'intro') {
+          setActiveTab(nextTab);
+        }
+
         setTimeout(() => {
-          if (tabsRef.current) {
+          if (tabsRef.current && nextTab !== 'intro') {
             tabsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
           const firstActivityId = activityMap[nextTab]?.[0];
           if (firstActivityId) {
             const firstCard = cardRefs.current[firstActivityId];
             if (firstCard) {
+              // If moving from intro to fundamentals, scroll to the card specifically
+              if (tabId === 'intro') {
+                firstCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }
               firstCard.classList.add('highlight-card');
               setTimeout(() => firstCard.classList.remove('highlight-card'), 1500);
             }
@@ -202,44 +211,57 @@ const CoursePageContent: React.FC = () => {
       </section>
 
       {/* Multimedia Section */}
-      {/* Multimedia Section */}
-      <div className="grid md:grid-cols-2 gap-4 mb-8">
-        <Card className="bg-slate-50 dark:bg-neutral-900 border-slate-200 dark:border-neutral-800">
+      <div className="flex flex-col gap-4 mb-8">
+        <Card ref={el => cardRefs.current["audio_summary"] = el} className="bg-slate-50 dark:bg-neutral-900 border-slate-200 dark:border-neutral-800">
           <CardContent className="p-4 flex flex-col items-center text-center gap-2">
             <Headphones className="w-8 h-8 text-blue-500" />
             <h3 className="font-bold text-slate-900 dark:text-white">Resumo em Áudio</h3>
             <p className="text-xs text-slate-500">Para ouvir no trânsito (12 min)</p>
-            <audio controls className="w-full mt-2 h-8">
+            <audio controls className="w-full mt-2 h-8 mb-4">
               <source src="https://priscilla-moreira.com/imagens/audio-cpl1.m4a" type="audio/mp4" />
               Seu navegador não suporta áudio.
             </audio>
+
+            <Button size="sm" className={`w-full ${completedSections["audio_summary"] ? "bg-green-600" : "bg-slate-900"} text-white`} onClick={() => toggleSection("audio_summary")}>
+              {completedSections["audio_summary"] ? <><CheckCircle2 className="w-4 h-4 mr-2" />Concluído</> : "Marcar como ouvido"}
+            </Button>
+            {completedSections["audio_summary"] && (
+              <Button size="sm" className="w-full mt-2 bg-brand-red" onClick={() => handleGoToNext("audio_summary", "intro")}>
+                Próximo 👉
+              </Button>
+            )}
+            <GamificationStatus />
           </CardContent>
         </Card>
-        <Card className="bg-slate-50 dark:bg-neutral-900 border-slate-200 dark:border-neutral-800">
+
+        <Card ref={el => cardRefs.current["video_summary"] = el} className="bg-slate-50 dark:bg-neutral-900 border-slate-200 dark:border-neutral-800">
           <CardContent className="p-4 flex flex-col items-center text-center gap-2">
             <Video className="w-8 h-8 text-green-500" />
             <h3 className="font-bold text-slate-900 dark:text-white">Resumo em Vídeo</h3>
             <p className="text-xs text-slate-500">O Guia das Armaduras</p>
+
+            <div className="w-full mt-4 bg-black rounded-xl border border-gray-200 dark:border-neutral-800 shadow-2xl overflow-hidden mb-4">
+              <div className="aspect-video w-full">
+                <video controls className="w-full h-full">
+                  <source src="https://priscilla-moreira.com/imagens/video-cpl1.mp4" type="video/mp4" />
+                  Seu navegador não suporta vídeo.
+                </video>
+              </div>
+            </div>
+
+            <Button size="sm" className={`w-full ${completedSections["video_summary"] ? "bg-green-600" : "bg-slate-900"} text-white`} onClick={() => toggleSection("video_summary")}>
+              {completedSections["video_summary"] ? <><CheckCircle2 className="w-4 h-4 mr-2" />Concluído</> : "Marcar como assistido"}
+            </Button>
+            {completedSections["video_summary"] && (
+              <Button size="sm" className="w-full mt-2 bg-brand-red" onClick={() => handleGoToNext("video_summary", "intro")}>
+                Próximo 👉
+              </Button>
+            )}
+            <GamificationStatus />
           </CardContent>
         </Card>
       </div>
 
-      {/* Inline Video Summary Player */}
-      <div className="overflow-hidden mb-8">
-        <div className="bg-black rounded-xl border border-gray-200 dark:border-neutral-800 shadow-2xl overflow-hidden">
-          <div className="aspect-video w-full">
-            <video controls className="w-full h-full">
-              <source src="https://priscilla-moreira.com/imagens/video-cpl1.mp4" type="video/mp4" />
-              Seu navegador não suporta vídeo.
-            </video>
-          </div>
-          <div className="p-4 bg-gray-100 dark:bg-neutral-900 flex justify-between items-center">
-            <span className="font-bold text-slate-900 dark:text-white">Resumo: O Guia das Armaduras</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Content Tabs */}
       <Tabs ref={tabsRef} value={activeTab} onValueChange={setActiveTab} className="space-y-6">
         <TabsList className="flex w-full justify-start gap-3 bg-transparent p-0 h-auto overflow-x-auto scrollbar-hide pb-2">
           <TabsTrigger value="fundamentos" className="rounded-full px-6 py-2 h-auto text-sm font-medium transition-all duration-200 data-[state=active]:bg-brand-red data-[state=active]:text-white data-[state=active]:shadow-md bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 hover:bg-slate-50 dark:hover:bg-neutral-800">

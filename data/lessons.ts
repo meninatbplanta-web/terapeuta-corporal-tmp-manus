@@ -46,7 +46,7 @@ const MINICOURSE_MODULE: Module = {
       courseId: 'minicourse',
       moduleId: 1,
       title: "Como viver de leitura corporal?",
-      releaseDate: `${CURRENT_YEAR}-12-07T20:00:00`,
+      releaseDate: `${CURRENT_YEAR}-12-07T15:00:00`,
       duration: "60:00",
       isLocked: true,
     }
