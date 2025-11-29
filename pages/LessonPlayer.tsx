@@ -177,30 +177,40 @@ const LessonPlayer: React.FC = () => {
       <div className="bg-gray-50 dark:bg-brand-darker text-gray-900 dark:text-white flex flex-col min-h-screen transition-colors duration-300">
         <Header />
         <div className="flex-1 overflow-y-auto custom-scrollbar">
-          <main className="container mx-auto px-4 py-12 max-w-4xl">
+          <main className="container mx-auto px-4 md:px-6 py-6 md:py-12 max-w-4xl transition-all duration-300">
 
             {/* Banner Image */}
-            <img
-              src="https://priscilla-moreira.com/imagens/minicurso-banner1.jpg"
-              alt="Banner do Curso"
-              className="w-full h-auto rounded-lg mb-8 object-cover shadow-sm border border-gray-200 dark:border-neutral-800"
-            />
+            <div className="relative w-full rounded-xl overflow-hidden shadow-lg mb-8 group">
+              <img
+                src="https://priscilla-moreira.com/imagens/minicurso-banner1.jpg"
+                alt="Banner do Curso"
+                className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            </div>
 
             {/* Header Info */}
-            <div className="mb-10 text-center md:text-left">
-              <div className="inline-flex items-center gap-2 mb-4 bg-gray-200 dark:bg-neutral-900/50 px-3 py-1 rounded-full border border-gray-300 dark:border-neutral-800 md:border-none md:bg-transparent md:p-0 transition-colors">
-                <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.5)]"></div>
-                <span className="text-xs font-bold text-gray-500 dark:text-neutral-400 uppercase tracking-widest">MINICURSO GRATUITO</span>
+            <div className="mb-8 md:mb-10 text-center md:text-left">
+              <div className="inline-flex items-center gap-2 mb-4 bg-gray-100 dark:bg-neutral-800/80 px-4 py-1.5 rounded-full border border-gray-200 dark:border-neutral-700 backdrop-blur-sm">
+                <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.5)] animate-pulse"></div>
+                <span className="text-[10px] md:text-xs font-bold text-gray-600 dark:text-neutral-300 uppercase tracking-widest">MINICURSO GRATUITO</span>
               </div>
-              <h1 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 dark:text-white leading-tight">
+              <h1 className="text-2xl md:text-4xl font-heading font-bold text-gray-900 dark:text-white leading-tight mb-2">
                 {currentCourse?.title}
               </h1>
+              <p className="text-sm md:text-base text-gray-500 dark:text-neutral-400 max-w-2xl mx-auto md:mx-0">
+                Domine a leitura corporal e transforme sua percepção sobre as pessoas.
+              </p>
             </div>
 
             {/* Inline Lesson List */}
-            <div className="mb-16">
-              <h3 className="text-xs font-bold text-gray-500 dark:text-neutral-500 uppercase tracking-widest mb-6">CONTEÚDO DO MINICURSO</h3>
-              <div className="flex flex-col gap-6">
+            <div className="mb-12">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xs font-bold text-gray-400 dark:text-neutral-500 uppercase tracking-widest">CONTEÚDO DO MINICURSO</h3>
+                <span className="text-xs text-gray-400 dark:text-neutral-500">{courseModules[0]?.lessons.length} Aulas</span>
+              </div>
+
+              <div className="flex flex-col gap-4">
                 {courseModules[0]?.lessons.map((lesson, index) => {
                   const isActive = lesson.id === currentLessonId;
                   const isLocked = !isLessonAvailable(lesson);
@@ -208,25 +218,39 @@ const LessonPlayer: React.FC = () => {
                     <div
                       key={lesson.id}
                       onClick={() => handleLessonChange(lesson.id)}
-                      className={`flex items-start gap-4 cursor-pointer group transition-all duration-300 ${isActive ? 'opacity-100 translate-x-1' : 'opacity-50 hover:opacity-80'}`}
+                      className={`relative overflow-hidden flex items-center gap-4 p-4 rounded-xl cursor-pointer group transition-all duration-300 border 
+                        ${isActive
+                          ? 'bg-white dark:bg-neutral-900 border-brand-red/30 shadow-md transform scale-[1.02]'
+                          : 'bg-white/50 dark:bg-neutral-900/30 border-transparent hover:bg-white dark:hover:bg-neutral-900 hover:shadow-sm hover:border-gray-200 dark:hover:border-neutral-800'
+                        }`}
                     >
-                      <div className={`mt-1 flex-shrink-0 ${isActive ? 'text-brand-red' : 'text-gray-400 dark:text-neutral-600'}`}>
-                        {isActive ? <Play size={24} fill="currentColor" /> : (isLocked ? <Lock size={20} /> : <Play size={20} />)}
+                      {isActive && <div className="absolute left-0 top-0 bottom-0 w-1 bg-brand-red"></div>}
+
+                      <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-colors
+                        ${isActive ? 'bg-brand-red/10 text-brand-red' : 'bg-gray-100 dark:bg-neutral-800 text-gray-400 dark:text-neutral-500 group-hover:text-gray-600 dark:group-hover:text-neutral-300'}`}>
+                        {isActive ? <Play size={20} fill="currentColor" /> : (isLocked ? <Lock size={18} /> : <Play size={18} />)}
                       </div>
-                      <div>
-                        <span className="text-xs font-bold text-gray-400 dark:text-neutral-500 uppercase tracking-wider mb-1 block">
-                          Aula {index + 1}
-                        </span>
-                        <h4 className={`font-heading font-bold text-lg md:text-xl leading-tight mb-1 transition-colors ${isActive ? 'text-gray-900 dark:text-white' : 'text-gray-600 dark:text-neutral-300 group-hover:text-gray-900 dark:group-hover:text-white'}`}>
+
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-0.5">
+                          <span className={`text-[10px] font-bold uppercase tracking-wider ${isActive ? 'text-brand-red' : 'text-gray-400 dark:text-neutral-500'}`}>
+                            Aula {index + 1}
+                          </span>
+                          {isActive && <span className="text-[10px] bg-brand-red text-white px-1.5 py-0.5 rounded-full">Tocando agora</span>}
+                        </div>
+                        <h4 className={`font-heading font-bold text-base md:text-lg leading-tight truncate transition-colors ${isActive ? 'text-gray-900 dark:text-white' : 'text-gray-700 dark:text-neutral-300'}`}>
                           {lesson.title}
                         </h4>
-                        <span className="text-xs font-mono text-gray-500 dark:text-neutral-600">
+                      </div>
+
+                      <div className="text-right flex-shrink-0">
+                        <span className="text-xs font-mono text-gray-400 dark:text-neutral-600 bg-gray-50 dark:bg-neutral-950 px-2 py-1 rounded">
                           {lesson.releaseDate ? (() => {
                             const date = new Date(lesson.releaseDate);
                             const day = date.getDate().toString().padStart(2, '0');
                             const month = (date.getMonth() + 1).toString().padStart(2, '0');
                             const hours = date.getHours().toString().padStart(2, '0');
-                            return `Dia ${day}/${month} ${hours}hs`;
+                            return `${day}/${month} • ${hours}h`;
                           })() : (lesson.duration || '60:00')}
                         </span>
                       </div>
@@ -237,79 +261,86 @@ const LessonPlayer: React.FC = () => {
             </div>
 
             {/* Content Area */}
-            <div className="bg-white dark:bg-brand-black border border-gray-200 dark:border-neutral-900 p-6 md:p-10 rounded-lg shadow-sm transition-colors duration-300">
+            <div className="bg-white dark:bg-brand-black border border-gray-200 dark:border-neutral-900 rounded-2xl shadow-xl overflow-hidden transition-colors duration-300">
 
-              <div className="mb-8 border-b border-gray-100 dark:border-neutral-800 pb-6">
-                <h1 className="text-3xl md:text-4xl font-heading font-bold text-slate-900 dark:text-white mb-2">
-                  Aula 1: O Raio-X Invisível
-                </h1>
-                <p className="text-xl text-slate-500 dark:text-slate-400">
-                  O Mapa da Mente Humana
-                </p>
-              </div>
-
-              {/* Welcome Box */}
-              <div className="bg-gradient-to-r from-blue-900 to-slate-900 text-white p-6 rounded-xl shadow-lg mb-6 border-l-4 border-brand-red relative overflow-hidden">
-                <div className="relative z-10">
-                  <h2 className="text-2xl font-bold mb-3">Bem-vindo ao mundo que ninguém te contou que existia.</h2>
-                  <p className="text-gray-200 mb-4 leading-relaxed">
-                    Você está prestes a receber a <strong className="text-brand-red">Chave Mestra</strong> da mente humana. Uma habilidade que mudará para sempre a forma como você enxerga as pessoas.
-                  </p>
-                  <p className="text-gray-200 mb-4 leading-relaxed">
-                    Imagine olhar para qualquer um e — sem que seja dita uma única palavra — saber exatamente como aquela pessoa pensa, sente e age. O <strong>Raio-X Invisível</strong> não é apenas teoria; é o poder de ler a mente através do corpo.
-                  </p>
-                  <p className="font-bold text-white">
-                    Prepare-se: depois dessa aula, você nunca mais conseguirá "desver" a verdade.
+              <div className="p-6 md:p-10">
+                <div className="mb-8 border-b border-gray-100 dark:border-neutral-800 pb-6">
+                  <h1 className="text-2xl md:text-4xl font-heading font-bold text-slate-900 dark:text-white mb-2 leading-tight">
+                    Aula 1: O Raio-X Invisível
+                  </h1>
+                  <p className="text-lg md:text-xl text-slate-500 dark:text-slate-400">
+                    O Mapa da Mente Humana
                   </p>
                 </div>
-              </div>
 
-              {/* Premiere Notice */}
-              <div className="flex items-center justify-center gap-2 text-brand-red font-bold mb-6 bg-red-50 dark:bg-red-900/10 p-3 rounded-lg border border-red-100 dark:border-red-900/20">
-                <Lock size={20} />
-                <span>ESTREIA EXCLUSIVA: 01/12 às 20h — A aula com Priscilla Moreira será liberada aqui neste horário. Agende-se.</span>
-              </div>
-
-              {renderVideoSection()}
-
-              {/* CTA Below Video */}
-              <div className="mb-8 p-6 bg-slate-50 dark:bg-neutral-900/50 rounded-xl border border-slate-200 dark:border-neutral-800">
-                <h3 className="font-heading font-bold text-xl text-slate-900 dark:text-white mb-2">
-                  Não espere: Comece a usar a Chave Mestra agora.
-                </h3>
-                <p className="text-slate-600 dark:text-slate-400">
-                  Enquanto a estreia não acontece, você tem acesso antecipado aos nossos arquivos confidenciais. Acesse o <strong>Resumo da Aula</strong> e estude os <strong>Traços de Caráter</strong> nos botões abaixo para chegar na aula com vantagem total.
-                </p>
-              </div>
-
-              {/* Conteúdo da Aula 1 - Inserido do repositório analise-corporal-page */}
-              {currentLessonId === 1 && <CoursePageContent />}
-
-
-
-              {isContentUnlocked && currentLessonId !== 1 && (
-                <div>
-                  {/* Simplified Tabs for Minicurso */}
-                  <div className="mb-8 overflow-x-auto scrollbar-hide">
-                    <div className="flex gap-3 min-w-max pb-1">
-                      {Object.values(TabOption).map((tab) => (
-                        <button
-                          key={tab}
-                          onClick={() => setActiveTab(tab)}
-                          className={`px-6 py-2 rounded-full font-medium text-sm transition-all duration-200 
-                                        ${activeTab === tab
-                              ? 'bg-brand-red text-white shadow-md transform scale-105'
-                              : 'bg-white dark:bg-neutral-900 text-gray-600 dark:text-neutral-400 border border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-800 hover:border-gray-300 dark:hover:border-neutral-700'}
-                                    `}
-                        >
-                          {tab}
-                        </button>
-                      ))}
+                {/* Welcome Box */}
+                <div className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white p-6 md:p-8 rounded-2xl shadow-lg mb-8 border-l-4 border-brand-red relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <BrainCircuit size={120} />
+                  </div>
+                  <div className="relative z-10">
+                    <h2 className="text-xl md:text-2xl font-bold mb-4 leading-snug">Bem-vindo ao mundo que ninguém te contou que existia.</h2>
+                    <div className="space-y-4 text-gray-100/90 text-sm md:text-base leading-relaxed">
+                      <p>
+                        Você está prestes a receber a <strong className="text-brand-red bg-white/10 px-1 rounded">Chave Mestra</strong> da mente humana. Uma habilidade que mudará para sempre a forma como você enxerga as pessoas.
+                      </p>
+                      <p>
+                        Imagine olhar para qualquer um e — sem que seja dita uma única palavra — saber exatamente como aquela pessoa pensa, sente e age. O <strong>Raio-X Invisível</strong> não é apenas teoria; é o poder de ler a mente através do corpo.
+                      </p>
+                      <p className="font-bold text-white pt-2 border-t border-white/10">
+                        Prepare-se: depois dessa aula, você nunca mais conseguirá "desver" a verdade.
+                      </p>
                     </div>
                   </div>
-                  {renderTabContent()}
                 </div>
-              )}
+
+                {/* Premiere Notice */}
+                <div className="flex flex-col md:flex-row items-center justify-center gap-3 text-brand-red font-bold mb-8 bg-red-50 dark:bg-red-900/10 p-4 rounded-xl border border-red-100 dark:border-red-900/20 text-center md:text-left animate-pulse-slow">
+                  <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded-full">
+                    <Lock size={20} />
+                  </div>
+                  <span className="text-sm md:text-base">ESTREIA EXCLUSIVA: 01/12 às 20h — A aula com Priscilla Moreira será liberada aqui neste horário. Agende-se.</span>
+                </div>
+
+                {renderVideoSection()}
+
+                {/* CTA Below Video */}
+                <div className="mb-10 p-6 md:p-8 bg-slate-50 dark:bg-neutral-900/30 rounded-2xl border border-slate-200 dark:border-neutral-800 text-center md:text-left">
+                  <h3 className="font-heading font-bold text-xl md:text-2xl text-slate-900 dark:text-white mb-3">
+                    Não espere: Comece a usar a Chave Mestra agora.
+                  </h3>
+                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm md:text-base">
+                    Enquanto a estreia não acontece, você tem acesso antecipado aos nossos arquivos confidenciais. Acesse o <strong>Resumo da Aula</strong> e estude os <strong>Traços de Caráter</strong> nos botões abaixo para chegar na aula com vantagem total.
+                  </p>
+                </div>
+
+                {/* Conteúdo da Aula 1 - Inserido do repositório analise-corporal-page */}
+                {currentLessonId === 1 && <CoursePageContent />}
+
+                {isContentUnlocked && currentLessonId !== 1 && (
+                  <div>
+                    {/* Simplified Tabs for Minicurso */}
+                    <div className="mb-8 overflow-x-auto scrollbar-hide -mx-6 px-6 md:mx-0 md:px-0">
+                      <div className="flex gap-3 min-w-max pb-2">
+                        {Object.values(TabOption).map((tab) => (
+                          <button
+                            key={tab}
+                            onClick={() => setActiveTab(tab)}
+                            className={`px-6 py-2.5 rounded-full font-medium text-sm transition-all duration-300 
+                                          ${activeTab === tab
+                                ? 'bg-brand-red text-white shadow-lg shadow-brand-red/20 transform scale-105'
+                                : 'bg-gray-100 dark:bg-neutral-800 text-gray-600 dark:text-neutral-400 border border-transparent hover:bg-gray-200 dark:hover:bg-neutral-700'}
+                                      `}
+                          >
+                            {tab}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    {renderTabContent()}
+                  </div>
+                )}
+              </div>
             </div>
 
           </main>

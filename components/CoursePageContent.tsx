@@ -4,7 +4,7 @@ import { Button } from "../components/ui/button";
 import { Progress } from "../components/ui/progress";
 import { Badge } from "../components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
-import { CheckCircle2, Trophy, Heart, Brain, Shield, Star, Zap, BookOpen, PlayCircle, Headphones, FileText, AlertTriangle, Video, HelpCircle } from "lucide-react";
+import { CheckCircle2, Trophy, Heart, Brain, Shield, Star, Zap, BookOpen, PlayCircle, Headphones, FileText, AlertTriangle, Video, HelpCircle, Layers } from "lucide-react";
 import { MINICOURSE_MODULE } from "../data/lessons";
 
 interface CompletedSection {
@@ -167,50 +167,53 @@ const CoursePageContent: React.FC = () => {
   };
 
   return (
-    <div className="space-y-12 mt-12">
+    <div className="space-y-8 md:space-y-12 mt-8 md:mt-12">
       {/* Dashboard Section */}
-      <div className="bg-slate-50 dark:bg-neutral-900/50 rounded-xl p-6 mb-8 border border-slate-100 dark:border-neutral-800">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
+      <div className="bg-slate-50 dark:bg-neutral-900/50 rounded-2xl p-6 md:p-8 mb-8 border border-slate-100 dark:border-neutral-800 shadow-sm">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-6">
 
           {/* Progress */}
-          <div className="w-full md:w-1/2 space-y-2">
+          <div className="w-full md:w-1/2 space-y-3">
             <div className="flex justify-between items-center text-sm">
-              <span className="font-bold text-slate-700 dark:text-slate-300">Seu Progresso</span>
-              <span className="text-slate-500">{completedCount} de {totalSections} atividades</span>
+              <span className="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                Seu Progresso
+              </span>
+              <span className="text-slate-500 font-medium">{completedCount} de {totalSections} atividades</span>
             </div>
-            <Progress value={progressPercentage} className="h-3 rounded-full bg-slate-200 dark:bg-neutral-800" />
+            <Progress value={progressPercentage} className="h-4 rounded-full bg-slate-200 dark:bg-neutral-800" />
           </div>
 
           {/* Points */}
-          <div className="flex items-center gap-3 bg-white dark:bg-black px-4 py-2 rounded-lg border border-slate-200 dark:border-neutral-800 shadow-sm">
-            <div className="p-2 bg-amber-100 dark:bg-amber-900/30 rounded-full">
-              <Trophy className="w-5 h-5 text-amber-600 dark:text-amber-500" />
+          <div className="w-full md:w-auto flex items-center gap-4 bg-white dark:bg-black px-5 py-3 rounded-xl border border-slate-200 dark:border-neutral-800 shadow-sm transition-transform hover:scale-105 duration-300">
+            <div className="p-2.5 bg-amber-100 dark:bg-amber-900/30 rounded-full">
+              <Trophy className="w-6 h-6 text-amber-600 dark:text-amber-500" />
             </div>
             <div>
-              <span className="block text-xs text-slate-500 uppercase font-bold">Pontuação</span>
-              <span className="block text-xl font-bold text-slate-900 dark:text-white">{userPoints} XP</span>
+              <span className="block text-[10px] text-slate-500 uppercase font-bold tracking-wider">Sua Pontuação</span>
+              <span className="block text-2xl font-bold text-slate-900 dark:text-white">{userPoints} <span className="text-sm font-normal text-slate-500">XP</span></span>
             </div>
           </div>
         </div>
 
         {/* Badges & Info */}
-        <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between border-t border-slate-200 dark:border-neutral-800 pt-4">
+        <div className="flex flex-col md:flex-row gap-6 items-start md:items-center justify-between border-t border-slate-200 dark:border-neutral-800 pt-6">
 
           {/* Badges */}
-          <div className="flex flex-wrap gap-2">
-            {badges.length === 0 && <span className="text-sm text-slate-400 italic">Complete atividades para ganhar medalhas!</span>}
+          <div className="flex flex-wrap gap-3">
+            {badges.length === 0 && <span className="text-sm text-slate-400 italic flex items-center gap-2"><Star size={14} /> Complete atividades para ganhar medalhas!</span>}
             {badges.map((badge) => (
-              <div key={badge} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide shadow-sm border ${badgeConfig[badge as keyof typeof badgeConfig].color} border-current/20`}>
-                <span>{badgeConfig[badge as keyof typeof badgeConfig].icon}</span>
+              <div key={badge} className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wide shadow-sm border ${badgeConfig[badge as keyof typeof badgeConfig].color} border-current/20 transition-all hover:scale-105 cursor-default`}>
+                <span className="text-lg">{badgeConfig[badge as keyof typeof badgeConfig].icon}</span>
                 <span>{badgeConfig[badge as keyof typeof badgeConfig].label}</span>
               </div>
             ))}
           </div>
 
           {/* Mini Info */}
-          <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 bg-blue-50 dark:bg-blue-900/10 px-3 py-2 rounded border border-blue-100 dark:border-blue-900/20 max-w-md">
-            <HelpCircle className="w-4 h-4 text-blue-500 flex-shrink-0" />
-            <p>
+          <div className="w-full md:w-auto flex items-start md:items-center gap-3 text-sm text-slate-600 dark:text-slate-400 bg-blue-50 dark:bg-blue-900/10 px-4 py-3 rounded-xl border border-blue-100 dark:border-blue-900/20 max-w-md">
+            <HelpCircle className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5 md:mt-0" />
+            <p className="leading-snug">
               Complete todas as lições até a <strong>Aula 4</strong> para liberar seu <strong className="text-blue-600 dark:text-blue-400">Certificado Gratuito</strong>.
             </p>
           </div>
@@ -219,24 +222,26 @@ const CoursePageContent: React.FC = () => {
 
       {/* Intro Section */}
       <section>
-        <Card className="border-0 shadow-lg bg-white dark:bg-neutral-900">
-          <CardHeader className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-t-lg">
-            <div className="flex items-start gap-3">
-              <Zap className="w-6 h-6 mt-1 flex-shrink-0" />
+        <Card className="border-0 shadow-lg bg-white dark:bg-neutral-900 rounded-2xl overflow-hidden">
+          <CardHeader className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 md:p-8">
+            <div className="flex items-start gap-4">
+              <div className="p-3 bg-white/10 rounded-xl backdrop-blur-sm">
+                <Zap className="w-8 h-8 text-yellow-300" />
+              </div>
               <div>
-                <CardTitle className="text-2xl">Bem-vindo à Visão de Raio-X</CardTitle>
-                <CardDescription className="text-blue-100 mt-2">
+                <CardTitle className="text-2xl md:text-3xl mb-2">Bem-vindo à Visão de Raio-X</CardTitle>
+                <CardDescription className="text-blue-100 text-base md:text-lg">
                   "Eu não tenho bola de cristal. Eu tenho técnica."
                 </CardDescription>
               </div>
             </div>
           </CardHeader>
-          <CardContent className="pt-6">
-            <p className="text-slate-700 dark:text-slate-300 leading-relaxed mb-4">
+          <CardContent className="p-6 md:p-8">
+            <p className="text-slate-700 dark:text-slate-300 leading-relaxed mb-6 text-base md:text-lg">
               Nesta aula, você descobriu que ler pessoas não é um dom sobrenatural. O formato do corpo humano é determinado por um processo biológico chamado mielinização da medula espinhal.
             </p>
-            <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
-              Tudo o que você viveu, desde o útero até os 5 anos de idade, moldou o corpo que você tem hoje. O seu corpo é uma armadura criada para proteger a sua mente das dores que você sentiu na infância.
+            <p className="text-slate-700 dark:text-slate-300 leading-relaxed text-base md:text-lg border-l-4 border-purple-500 pl-4 italic">
+              "Tudo o que você viveu, desde o útero até os 5 anos de idade, moldou o corpo que você tem hoje. O seu corpo é uma armadura criada para proteger a sua mente das dores que você sentiu na infância."
             </p>
           </CardContent>
         </Card>
@@ -244,10 +249,13 @@ const CoursePageContent: React.FC = () => {
 
       {/* Content Index Section */}
       <section className="py-4">
-        <div className="flex items-center justify-between mb-2 px-1">
-          <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Nessa aula você vai encontrar:</h3>
+        <div className="flex items-center justify-between mb-4 px-1">
+          <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
+            <Layers size={16} />
+            Navegação Rápida
+          </h3>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
           {[
             { label: "Resumo em Áudio", icon: Headphones, action: () => scrollToSection("audio_summary") },
             { label: "Resumo em Vídeo", icon: Video, action: () => scrollToSection("video_summary") },
@@ -260,10 +268,12 @@ const CoursePageContent: React.FC = () => {
             <button
               key={index}
               onClick={item.action}
-              className="flex flex-col items-center justify-center p-3 rounded-lg border bg-white border-slate-200 dark:bg-neutral-900 dark:border-neutral-800 hover:border-blue-300 dark:hover:border-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 gap-2 text-center h-full"
+              className="flex flex-col items-center justify-center p-4 rounded-xl border bg-white border-slate-200 dark:bg-neutral-900 dark:border-neutral-800 hover:border-blue-400 dark:hover:border-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:shadow-md transition-all duration-300 gap-3 text-center h-full group"
             >
-              <item.icon className="w-5 h-5 text-blue-500" />
-              <span className="text-xs font-medium text-slate-700 dark:text-slate-300 leading-tight">
+              <div className="p-2 bg-slate-50 dark:bg-neutral-800 rounded-full group-hover:bg-white dark:group-hover:bg-neutral-700 transition-colors">
+                <item.icon className="w-6 h-6 text-blue-500 group-hover:scale-110 transition-transform" />
+              </div>
+              <span className="text-xs md:text-sm font-bold text-slate-700 dark:text-slate-300 leading-tight">
                 {item.label}
               </span>
             </button>
@@ -272,36 +282,47 @@ const CoursePageContent: React.FC = () => {
       </section>
 
       {/* Multimedia Section */}
-      <div className="flex flex-col gap-4 mb-8">
-        <Card ref={el => cardRefs.current["audio_summary"] = el} className="bg-slate-50 dark:bg-neutral-900 border-slate-200 dark:border-neutral-800">
-          <CardContent className="p-4 flex flex-col items-center text-center gap-2">
-            <Headphones className="w-8 h-8 text-blue-500" />
-            <h3 className="font-bold text-slate-900 dark:text-white">Resumo em Áudio</h3>
-            <p className="text-xs text-slate-500">Para ouvir no trânsito (12 min)</p>
-            <audio controls className="w-full mt-2 h-8 mb-4">
-              <source src="https://priscilla-moreira.com/imagens/audio-cpl1.m4a" type="audio/mp4" />
-              Seu navegador não suporta áudio.
-            </audio>
+      <div className="flex flex-col gap-6 mb-8">
+        <Card ref={el => cardRefs.current["audio_summary"] = el} className="bg-slate-50 dark:bg-neutral-900 border-slate-200 dark:border-neutral-800 rounded-2xl overflow-hidden">
+          <CardContent className="p-6 md:p-8 flex flex-col items-center text-center gap-4">
+            <div className="p-4 bg-blue-100 dark:bg-blue-900/30 rounded-full mb-2">
+              <Headphones className="w-10 h-10 text-blue-600 dark:text-blue-400" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1">Resumo em Áudio</h3>
+              <p className="text-sm text-slate-500">Para ouvir no trânsito (12 min)</p>
+            </div>
 
-            <Button size="sm" className={`w-full ${completedSections["audio_summary"] ? "bg-green-600" : "bg-slate-900"} text-white`} onClick={() => toggleSection("audio_summary")}>
-              {completedSections["audio_summary"] ? <><CheckCircle2 className="w-4 h-4 mr-2" />Concluído</> : "Marcar como ouvido"}
+            <div className="w-full bg-white dark:bg-black p-4 rounded-xl border border-slate-200 dark:border-neutral-800 shadow-inner">
+              <audio controls className="w-full h-10">
+                <source src="https://priscilla-moreira.com/imagens/audio-cpl1.m4a" type="audio/mp4" />
+                Seu navegador não suporta áudio.
+              </audio>
+            </div>
+
+            <Button size="lg" className={`w-full py-6 text-base font-bold shadow-lg transition-all hover:scale-[1.02] ${completedSections["audio_summary"] ? "bg-green-600 hover:bg-green-700" : "bg-slate-900 hover:bg-slate-800"} text-white rounded-xl`} onClick={() => toggleSection("audio_summary")}>
+              {completedSections["audio_summary"] ? <><CheckCircle2 className="w-5 h-5 mr-2" />Concluído</> : "Marcar como ouvido"}
             </Button>
             {completedSections["audio_summary"] && (
-              <Button size="sm" className="w-full mt-2 bg-brand-red" onClick={() => handleGoToNext("audio_summary", "intro")}>
-                Próximo 👉
+              <Button variant="outline" size="lg" className="w-full py-6 text-brand-red border-brand-red hover:bg-red-50 dark:hover:bg-red-900/10 rounded-xl font-bold" onClick={() => handleGoToNext("audio_summary", "intro")}>
+                Próximo: Vídeo Resumo 👉
               </Button>
             )}
             <GamificationStatus />
           </CardContent>
         </Card>
 
-        <Card ref={el => cardRefs.current["video_summary"] = el} className="bg-slate-50 dark:bg-neutral-900 border-slate-200 dark:border-neutral-800">
-          <CardContent className="p-4 flex flex-col items-center text-center gap-2">
-            <Video className="w-8 h-8 text-green-500" />
-            <h3 className="font-bold text-slate-900 dark:text-white">Resumo em Vídeo</h3>
-            <p className="text-xs text-slate-500">O Guia das Armaduras</p>
+        <Card ref={el => cardRefs.current["video_summary"] = el} className="bg-slate-50 dark:bg-neutral-900 border-slate-200 dark:border-neutral-800 rounded-2xl overflow-hidden">
+          <CardContent className="p-6 md:p-8 flex flex-col items-center text-center gap-4">
+            <div className="p-4 bg-green-100 dark:bg-green-900/30 rounded-full mb-2">
+              <Video className="w-10 h-10 text-green-600 dark:text-green-400" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1">Resumo em Vídeo</h3>
+              <p className="text-sm text-slate-500">O Guia das Armaduras</p>
+            </div>
 
-            <div className="w-full mt-4 bg-black rounded-xl border border-gray-200 dark:border-neutral-800 shadow-2xl overflow-hidden mb-4">
+            <div className="w-full bg-black rounded-2xl border border-gray-200 dark:border-neutral-800 shadow-2xl overflow-hidden mb-4">
               <div className="aspect-video w-full">
                 <video controls className="w-full h-full">
                   <source src="https://priscilla-moreira.com/imagens/video-cpl1.mp4" type="video/mp4" />
@@ -310,12 +331,12 @@ const CoursePageContent: React.FC = () => {
               </div>
             </div>
 
-            <Button size="sm" className={`w-full ${completedSections["video_summary"] ? "bg-green-600" : "bg-slate-900"} text-white`} onClick={() => toggleSection("video_summary")}>
-              {completedSections["video_summary"] ? <><CheckCircle2 className="w-4 h-4 mr-2" />Concluído</> : "Marcar como assistido"}
+            <Button size="lg" className={`w-full py-6 text-base font-bold shadow-lg transition-all hover:scale-[1.02] ${completedSections["video_summary"] ? "bg-green-600 hover:bg-green-700" : "bg-slate-900 hover:bg-slate-800"} text-white rounded-xl`} onClick={() => toggleSection("video_summary")}>
+              {completedSections["video_summary"] ? <><CheckCircle2 className="w-5 h-5 mr-2" />Concluído</> : "Marcar como assistido"}
             </Button>
             {completedSections["video_summary"] && (
-              <Button size="sm" className="w-full mt-2 bg-brand-red" onClick={() => handleGoToNext("video_summary", "intro")}>
-                Próximo 👉
+              <Button variant="outline" size="lg" className="w-full py-6 text-brand-red border-brand-red hover:bg-red-50 dark:hover:bg-red-900/10 rounded-xl font-bold" onClick={() => handleGoToNext("video_summary", "intro")}>
+                Próximo: Fundamentos 👉
               </Button>
             )}
             <GamificationStatus />
@@ -323,52 +344,57 @@ const CoursePageContent: React.FC = () => {
         </Card>
       </div>
 
-      <Tabs ref={tabsRef} value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="flex w-full justify-start gap-3 bg-transparent p-0 h-auto overflow-x-auto scrollbar-hide pb-2">
-          <TabsTrigger value="fundamentos" className="rounded-full px-6 py-2 h-auto text-sm font-medium transition-all duration-200 data-[state=active]:bg-brand-red data-[state=active]:text-white data-[state=active]:shadow-md bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 hover:bg-slate-50 dark:hover:bg-neutral-800">
-            Fundamentos
-          </TabsTrigger>
-          <TabsTrigger value="tracos_carater" className="rounded-full px-6 py-2 h-auto text-sm font-medium transition-all duration-200 data-[state=active]:bg-brand-red data-[state=active]:text-white data-[state=active]:shadow-md bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 hover:bg-slate-50 dark:hover:bg-neutral-800">
-            Traços de Caráter
-          </TabsTrigger>
-          <TabsTrigger value="alerta_saude" className="rounded-full px-6 py-2 h-auto text-sm font-medium transition-all duration-200 data-[state=active]:bg-brand-red data-[state=active]:text-white data-[state=active]:shadow-md bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 hover:bg-slate-50 dark:hover:bg-neutral-800">
-            Alerta Saúde
-          </TabsTrigger>
-        </TabsList>
+      <Tabs ref={tabsRef} value={activeTab} onValueChange={setActiveTab} className="space-y-8">
+        <div className="sticky top-0 z-20 bg-gray-50/95 dark:bg-brand-darker/95 backdrop-blur-sm py-4 -mx-4 px-4 md:mx-0 md:px-0 md:static md:bg-transparent md:backdrop-blur-none">
+          <TabsList className="flex w-full justify-start gap-3 bg-transparent p-0 h-auto overflow-x-auto scrollbar-hide pb-2">
+            <TabsTrigger value="fundamentos" className="rounded-full px-6 py-2.5 h-auto text-sm font-bold transition-all duration-300 data-[state=active]:bg-brand-red data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-105 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 hover:bg-slate-50 dark:hover:bg-neutral-800 flex-shrink-0">
+              Fundamentos
+            </TabsTrigger>
+            <TabsTrigger value="tracos_carater" className="rounded-full px-6 py-2.5 h-auto text-sm font-bold transition-all duration-300 data-[state=active]:bg-brand-red data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-105 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 hover:bg-slate-50 dark:hover:bg-neutral-800 flex-shrink-0">
+              Traços de Caráter
+            </TabsTrigger>
+            <TabsTrigger value="alerta_saude" className="rounded-full px-6 py-2.5 h-auto text-sm font-bold transition-all duration-300 data-[state=active]:bg-brand-red data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-105 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 hover:bg-slate-50 dark:hover:bg-neutral-800 flex-shrink-0">
+              Alerta Saúde
+            </TabsTrigger>
+          </TabsList>
+        </div>
 
         {/* Fundamentos Tab */}
-        <TabsContent value="fundamentos" className="space-y-6">
-          <div className="space-y-6">
-            <Card ref={el => cardRefs.current["fundamentos_1"] = el} className="border-2 border-slate-200 dark:border-neutral-800">
-              <CardHeader>
-                <CardTitle className="text-xl text-slate-900 dark:text-white">A Formação da Armadura</CardTitle>
+        <TabsContent value="fundamentos" className="space-y-8 animate-fade-in">
+          <div className="space-y-8">
+            <Card ref={el => cardRefs.current["fundamentos_1"] = el} className="border-2 border-slate-200 dark:border-neutral-800 rounded-2xl overflow-hidden hover:border-blue-300 dark:hover:border-blue-700 transition-colors">
+              <CardHeader className="bg-slate-50 dark:bg-neutral-900/50">
+                <CardTitle className="text-xl md:text-2xl text-slate-900 dark:text-white">A Formação da Armadura</CardTitle>
               </CardHeader>
-              <CardContent>
-                <p className="text-slate-700 dark:text-slate-300 mb-4">
+              <CardContent className="p-6 md:p-8">
+                <p className="text-slate-700 dark:text-slate-300 mb-6 text-lg leading-relaxed">
                   O corpo não é moldado apenas pela genética. Ele reflete as necessidades básicas vividas em 5 fases de desenvolvimento. Se a necessidade não foi atendida, o corpo criou uma defesa física e comportamental.
                 </p>
-                <Button size="sm" className={`w-full ${completedSections["fundamentos_1"] ? "bg-green-600" : "bg-slate-900"} text-white`} onClick={() => toggleSection("fundamentos_1")}>
-                  {completedSections["fundamentos_1"] ? <><CheckCircle2 className="w-4 h-4 mr-2" />Concluído</> : "Marcar como lido"}
+                <Button size="lg" className={`w-full py-6 text-base font-bold rounded-xl shadow-md transition-transform hover:scale-[1.01] ${completedSections["fundamentos_1"] ? "bg-green-600 hover:bg-green-700" : "bg-slate-900 hover:bg-slate-800"} text-white`} onClick={() => toggleSection("fundamentos_1")}>
+                  {completedSections["fundamentos_1"] ? <><CheckCircle2 className="w-5 h-5 mr-2" />Concluído</> : "Marcar como lido"}
                 </Button>
                 {completedSections["fundamentos_1"] && (
-                  <Button size="sm" className="w-full mt-2 bg-brand-red" onClick={() => handleGoToNext("fundamentos_1", "fundamentos")}>
-                    Próximo 👉
+                  <Button variant="outline" size="lg" className="w-full mt-3 py-6 text-brand-red border-brand-red hover:bg-red-50 dark:hover:bg-red-900/10 rounded-xl font-bold" onClick={() => handleGoToNext("fundamentos_1", "fundamentos")}>
+                    Próximo: Conceito Chave 👉
                   </Button>
                 )}
                 <GamificationStatus />
               </CardContent>
             </Card>
 
-            <Card ref={el => cardRefs.current["fundamentos_key"] = el} className="border-l-4 border-l-blue-500 bg-blue-50 dark:bg-blue-900/10">
+            <Card ref={el => cardRefs.current["fundamentos_key"] = el} className="border-l-8 border-l-blue-500 bg-blue-50 dark:bg-blue-900/10 rounded-r-2xl shadow-sm">
               <CardHeader>
-                <CardTitle className="text-lg text-blue-900 dark:text-blue-200">Conceito Chave: O Processo de Mielinização</CardTitle>
+                <CardTitle className="text-xl text-blue-900 dark:text-blue-200 flex items-center gap-2">
+                  <Brain className="w-6 h-6" />
+                  Conceito Chave: O Processo de Mielinização
+                </CardTitle>
               </CardHeader>
-              <CardContent>
-                <p className="text-blue-800 dark:text-blue-300 mb-4">
+              <CardContent className="p-6">
+                <p className="text-blue-800 dark:text-blue-300 mb-6 text-lg">
                   Ocorre do útero aos 5 anos. Cada etapa molda uma parte do corpo e define um traço de caráter predominante.
                 </p>
-                <Button size="sm" className={`w-full ${completedSections["fundamentos_key"] ? "bg-green-600" : "bg-blue-600"}`} onClick={() => toggleSection("fundamentos_key")}>
-                  {completedSections["fundamentos_key"] ? <><CheckCircle2 className="w-4 h-4 mr-2" />Concluído</> : "Entendi o conceito"}
+                <Button size="lg" className={`w-full py-6 text-base font-bold rounded-xl shadow-md ${completedSections["fundamentos_key"] ? "bg-green-600" : "bg-blue-600 hover:bg-blue-700"} text-white`} onClick={() => toggleSection("fundamentos_key")}>
+                  {completedSections["fundamentos_key"] ? <><CheckCircle2 className="w-5 h-5 mr-2" />Concluído</> : "Entendi o conceito"}
                 </Button>
                 <GamificationStatus />
               </CardContent>
@@ -377,47 +403,50 @@ const CoursePageContent: React.FC = () => {
         </TabsContent>
 
         {/* Traços de Caráter Tab */}
-        <TabsContent value="tracos_carater" className="space-y-6">
-          <div className="grid gap-6">
+        <TabsContent value="tracos_carater" className="space-y-8 animate-fade-in">
+          <div className="grid gap-8">
             {[
-              { id: "esquizoide", name: "1. O ESQUIZOIDE", icon: Brain, color: "text-purple-500", archetype: "A Mente Brilhante", body: "Magro, alongado, cheio de 'quinas'. Cabeça grande.", pain: "Rejeição (Útero)", power: "Criatividade, lógica e ideias geniais.", story: "O Tiago: Gênio da computação que queria ficar invisível.", deal: "Respeite a 'caverna' dele." },
-              { id: "oral", name: "2. O ORAL", icon: Heart, color: "text-pink-500", archetype: "O Sentir e a Conexão", body: "Formas arredondadas, macias. Olhar 'pidão'.", pain: "Abandono (Amamentação)", power: "Comunicação, acolhimento e sensibilidade.", story: "A Cláudia: Sentia um 'buraco no peito' e precisava ser vista.", deal: "Ofereça colo e escuta." },
-              { id: "psicopata", name: "3. O PSICOPATA", icon: Trophy, color: "text-amber-500", archetype: "O Líder Articulador", body: "Triângulo invertido. Ombros largos, quadril estreito.", pain: "Manipulação (Primeiros passos)", power: "Liderança, vendas e negociação.", story: "O Marcos: Só ganhava aplausos se fizesse 'gracinha'.", deal: "Mostre o 'ganha-ganha'." },
-              { id: "masoquista", name: "4. O MASOQUISTA", icon: Shield, color: "text-slate-600", archetype: "O Cofre Forte", body: "Quadrado, compacto. Bumbum travado/achatado.", pain: "Humilhação (Desfralde)", power: "Planejamento, consistência e lealdade.", story: "A Ana: Carregava a família nas costas.", deal: "Nunca exponha em público." },
-              { id: "rigido", name: "5. O RÍGIDO", icon: Star, color: "text-red-500", archetype: "A Perfeição Competitiva", body: "Harmônico, curvas de violão. Atraente.", pain: "Traição/Exclusão (Pares)", power: "Agilidade, execução e perfeição.", story: "A Juliana: Impecável e exausta.", deal: "Elogie a competência e beleza." }
+              { id: "esquizoide", name: "1. O ESQUIZOIDE", icon: Brain, color: "text-purple-500", bg: "bg-purple-100 dark:bg-purple-900/20", archetype: "A Mente Brilhante", body: "Magro, alongado, cheio de 'quinas'. Cabeça grande.", pain: "Rejeição (Útero)", power: "Criatividade, lógica e ideias geniais.", story: "O Tiago: Gênio da computação que queria ficar invisível.", deal: "Respeite a 'caverna' dele." },
+              { id: "oral", name: "2. O ORAL", icon: Heart, color: "text-pink-500", bg: "bg-pink-100 dark:bg-pink-900/20", archetype: "O Sentir e a Conexão", body: "Formas arredondadas, macias. Olhar 'pidão'.", pain: "Abandono (Amamentação)", power: "Comunicação, acolhimento e sensibilidade.", story: "A Cláudia: Sentia um 'buraco no peito' e precisava ser vista.", deal: "Ofereça colo e escuta." },
+              { id: "psicopata", name: "3. O PSICOPATA", icon: Trophy, color: "text-amber-500", bg: "bg-amber-100 dark:bg-amber-900/20", archetype: "O Líder Articulador", body: "Triângulo invertido. Ombros largos, quadril estreito.", pain: "Manipulação (Primeiros passos)", power: "Liderança, vendas e negociação.", story: "O Marcos: Só ganhava aplausos se fizesse 'gracinha'.", deal: "Mostre o 'ganha-ganha'." },
+              { id: "masoquista", name: "4. O MASOQUISTA", icon: Shield, color: "text-slate-600", bg: "bg-slate-100 dark:bg-slate-800", archetype: "O Cofre Forte", body: "Quadrado, compacto. Bumbum travado/achatado.", pain: "Humilhação (Desfralde)", power: "Planejamento, consistência e lealdade.", story: "A Ana: Carregava a família nas costas.", deal: "Nunca exponha em público." },
+              { id: "rigido", name: "5. O RÍGIDO", icon: Star, color: "text-red-500", bg: "bg-red-100 dark:bg-red-900/20", archetype: "A Perfeição Competitiva", body: "Harmônico, curvas de violão. Atraente.", pain: "Traição/Exclusão (Pares)", power: "Agilidade, execução e perfeição.", story: "A Juliana: Impecável e exausta.", deal: "Elogie a competência e beleza." }
             ].map((trait) => (
-              <Card key={trait.id} ref={el => cardRefs.current[trait.id] = el} className="border-2 border-slate-200 dark:border-neutral-800 hover:border-brand-red transition-all">
-                <CardHeader className="flex flex-row items-center gap-4">
-                  <div className={`p-3 rounded-full bg-slate-100 dark:bg-neutral-800 ${trait.color}`}>
-                    <trait.icon size={32} />
+              <Card key={trait.id} ref={el => cardRefs.current[trait.id] = el} className="border-2 border-slate-200 dark:border-neutral-800 hover:border-brand-red transition-all duration-300 rounded-2xl overflow-hidden group">
+                <CardHeader className="flex flex-row items-center gap-4 bg-slate-50 dark:bg-neutral-900/50 p-6">
+                  <div className={`p-4 rounded-2xl ${trait.bg} ${trait.color} shadow-sm group-hover:scale-110 transition-transform`}>
+                    <trait.icon size={36} />
                   </div>
                   <div>
-                    <CardTitle className="text-xl text-slate-900 dark:text-white">{trait.name}</CardTitle>
-                    <CardDescription className="font-bold text-brand-red">{trait.archetype}</CardDescription>
+                    <CardTitle className="text-xl md:text-2xl text-slate-900 dark:text-white mb-1">{trait.name}</CardTitle>
+                    <CardDescription className="font-bold text-brand-red text-base">{trait.archetype}</CardDescription>
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="grid md:grid-cols-2 gap-4 text-sm">
-                    <div className="bg-slate-50 dark:bg-neutral-900 p-3 rounded">
-                      <span className="font-bold block mb-1 text-slate-700 dark:text-slate-300">Corpo:</span>
+                <CardContent className="space-y-6 p-6 md:p-8">
+                  <div className="grid md:grid-cols-2 gap-4 text-sm md:text-base">
+                    <div className="bg-slate-50 dark:bg-neutral-900 p-4 rounded-xl border border-slate-100 dark:border-neutral-800">
+                      <span className="font-bold block mb-1 text-slate-700 dark:text-slate-300 uppercase text-xs tracking-wider">Corpo</span>
                       <span className="text-slate-600 dark:text-slate-400">{trait.body}</span>
                     </div>
-                    <div className="bg-slate-50 dark:bg-neutral-900 p-3 rounded">
-                      <span className="font-bold block mb-1 text-slate-700 dark:text-slate-300">Dor Principal:</span>
-                      <span className="text-red-500 font-medium">{trait.pain}</span>
+                    <div className="bg-red-50 dark:bg-red-900/10 p-4 rounded-xl border border-red-100 dark:border-red-900/20">
+                      <span className="font-bold block mb-1 text-red-700 dark:text-red-300 uppercase text-xs tracking-wider">Dor Principal</span>
+                      <span className="text-red-600 dark:text-red-400 font-medium">{trait.pain}</span>
                     </div>
-                    <div className="bg-green-50 dark:bg-green-900/10 p-3 rounded col-span-2">
-                      <span className="font-bold block mb-1 text-green-800 dark:text-green-300">Superpoder:</span>
-                      <span className="text-green-700 dark:text-green-400">{trait.power}</span>
+                    <div className="bg-green-50 dark:bg-green-900/10 p-4 rounded-xl border border-green-100 dark:border-green-900/20 col-span-1 md:col-span-2">
+                      <span className="font-bold block mb-1 text-green-800 dark:text-green-300 uppercase text-xs tracking-wider">Superpoder</span>
+                      <span className="text-green-700 dark:text-green-400 font-medium">{trait.power}</span>
                     </div>
                   </div>
-                  <p className="text-sm italic text-slate-500 border-l-2 border-slate-300 pl-3">"{trait.story}"</p>
 
-                  <Button size="sm" className={`w-full ${completedSections[trait.id] ? "bg-green-600" : "bg-slate-900"} text-white`} onClick={() => toggleSection(trait.id)}>
-                    {completedSections[trait.id] ? <><CheckCircle2 className="w-4 h-4 mr-2" />Estudado</> : "Marcar como estudado"}
+                  <div className="relative pl-6 border-l-4 border-slate-300 dark:border-neutral-700 py-2">
+                    <p className="text-base italic text-slate-600 dark:text-slate-400">"{trait.story}"</p>
+                  </div>
+
+                  <Button size="lg" className={`w-full py-6 text-base font-bold rounded-xl shadow-md transition-all hover:scale-[1.01] ${completedSections[trait.id] ? "bg-green-600 hover:bg-green-700" : "bg-slate-900 hover:bg-slate-800"} text-white`} onClick={() => toggleSection(trait.id)}>
+                    {completedSections[trait.id] ? <><CheckCircle2 className="w-5 h-5 mr-2" />Estudado</> : "Marcar como estudado"}
                   </Button>
                   {completedSections[trait.id] && (
-                    <Button size="sm" className="w-full mt-2 bg-brand-red" onClick={() => handleGoToNext(trait.id, "tracos_carater")}>
+                    <Button variant="outline" size="lg" className="w-full mt-2 py-6 text-brand-red border-brand-red hover:bg-red-50 dark:hover:bg-red-900/10 rounded-xl font-bold" onClick={() => handleGoToNext(trait.id, "tracos_carater")}>
                       Próximo Traço 👉
                     </Button>
                   )}
@@ -429,37 +458,43 @@ const CoursePageContent: React.FC = () => {
         </TabsContent>
 
         {/* Alerta Saúde Tab */}
-        <TabsContent value="alerta_saude" className="space-y-6">
-          <Card ref={el => cardRefs.current["alerta_saude_content"] = el} className="border-0 shadow-lg bg-red-50 dark:bg-red-950/20 border-l-8 border-l-red-600">
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <AlertTriangle className="w-8 h-8 text-red-600" />
+        <TabsContent value="alerta_saude" className="space-y-8 animate-fade-in">
+          <Card ref={el => cardRefs.current["alerta_saude_content"] = el} className="border-0 shadow-xl bg-red-50 dark:bg-red-950/20 border-l-8 border-l-red-600 rounded-r-2xl overflow-hidden">
+            <CardHeader className="bg-red-100/50 dark:bg-red-900/10 p-6 md:p-8">
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-red-100 dark:bg-red-900/30 rounded-full animate-pulse">
+                  <AlertTriangle className="w-8 h-8 text-red-600" />
+                </div>
                 <div>
-                  <CardTitle className="text-2xl text-red-700 dark:text-red-400">⚠️ O Grito do Corpo</CardTitle>
-                  <CardDescription className="text-red-600/80">Quando o traço entra em sofrimento</CardDescription>
+                  <CardTitle className="text-2xl md:text-3xl text-red-700 dark:text-red-400">⚠️ O Grito do Corpo</CardTitle>
+                  <CardDescription className="text-red-600/80 text-lg">Quando o traço entra em sofrimento</CardDescription>
                 </div>
               </div>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-slate-800 dark:text-slate-200 font-medium">
+            <CardContent className="space-y-6 p-6 md:p-8">
+              <p className="text-slate-800 dark:text-slate-200 font-medium text-lg leading-relaxed">
                 Você aprendeu a ler o formato. Mas o que acontece quando ignoramos quem somos? O corpo grita em forma de DOENÇA.
               </p>
-              <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
-                <li>Gastrite e Refluxo</li>
-                <li>Enxaqueca constante</li>
-                <li>Dores nas costas que não passam</li>
-                <li>Travamento na lombar</li>
-              </ul>
-              <div className="bg-white dark:bg-black p-4 rounded border border-red-200 dark:border-red-900 mt-4">
-                <p className="font-bold text-center text-red-600">
+              <div className="bg-white/60 dark:bg-black/40 p-6 rounded-xl border border-red-100 dark:border-red-900/30">
+                <ul className="grid md:grid-cols-2 gap-3">
+                  {["Gastrite e Refluxo", "Enxaqueca constante", "Dores nas costas que não passam", "Travamento na lombar"].map((item, i) => (
+                    <li key={i} className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+                      <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="bg-white dark:bg-black p-6 rounded-xl border border-red-200 dark:border-red-900 shadow-sm">
+                <p className="font-bold text-center text-red-600 text-lg">
                   Isso não é azar. NA AULA 2, revelaremos a Causa Emocional das Doenças e o que sua dor tenta dizer.
                 </p>
               </div>
-              <Button size="lg" className={`w-full mt-4 ${completedSections["alerta_saude_content"] ? "bg-green-600" : "bg-red-600 hover:bg-red-700"}`} onClick={() => toggleSection("alerta_saude_content")}>
-                {completedSections["alerta_saude_content"] ? <><CheckCircle2 className="w-4 h-4 mr-2" />Lido e Entendido</> : "Entendi o Alerta"}
+              <Button size="lg" className={`w-full mt-4 py-6 text-base font-bold rounded-xl shadow-lg transition-transform hover:scale-[1.02] ${completedSections["alerta_saude_content"] ? "bg-green-600" : "bg-red-600 hover:bg-red-700"}`} onClick={() => toggleSection("alerta_saude_content")}>
+                {completedSections["alerta_saude_content"] ? <><CheckCircle2 className="w-5 h-5 mr-2" />Lido e Entendido</> : "Entendi o Alerta"}
               </Button>
               {completedSections["alerta_saude_content"] && (
-                <Button size="sm" className="w-full mt-2 bg-slate-800 text-white" onClick={() => handleGoToNext("alerta_saude_content", "alerta_saude")}>
+                <Button variant="outline" size="lg" className="w-full mt-2 py-6 text-slate-800 dark:text-white border-slate-300 dark:border-neutral-700 hover:bg-slate-100 dark:hover:bg-neutral-800 rounded-xl font-bold" onClick={() => handleGoToNext("alerta_saude_content", "alerta_saude")}>
                   Ir para Exercícios 👉
                 </Button>
               )}
@@ -471,43 +506,48 @@ const CoursePageContent: React.FC = () => {
 
       {/* Exercises Section */}
       <section id="exercises-section">
-        <Card className="border-0 shadow-lg bg-white dark:bg-neutral-900">
-          <CardHeader className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-t-lg">
-            <div className="flex items-start gap-3">
-              <BookOpen className="w-6 h-6 mt-1 flex-shrink-0" />
+        <Card className="border-0 shadow-xl bg-white dark:bg-neutral-900 rounded-2xl overflow-hidden">
+          <CardHeader className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white p-6 md:p-8">
+            <div className="flex items-start gap-4">
+              <div className="p-3 bg-white/10 rounded-xl backdrop-blur-sm">
+                <BookOpen className="w-8 h-8 text-cyan-100" />
+              </div>
               <div>
-                <CardTitle className="text-2xl">Dever de Casa</CardTitle>
-                <CardDescription className="text-cyan-100">Praticando o Olhar de Raio-X</CardDescription>
+                <CardTitle className="text-2xl md:text-3xl">Dever de Casa</CardTitle>
+                <CardDescription className="text-cyan-100 text-lg">Praticando o Olhar de Raio-X</CardDescription>
               </div>
             </div>
           </CardHeader>
-          <CardContent className="pt-6">
-            <Card ref={el => cardRefs.current["ex_analise"] = el} className="border-2 border-cyan-200 dark:border-cyan-900">
-              <CardHeader>
-                <CardTitle className="text-lg text-slate-900 dark:text-white">Exercício: O Corpo Não Mente</CardTitle>
-                <Button variant="ghost" size="sm" onClick={() => setExpandedExercise(expandedExercise === "ex_analise" ? null : "ex_analise")}>
-                  {expandedExercise === "ex_analise" ? "−" : "👇 Abrir Instruções"}
-                </Button>
+          <CardContent className="p-6 md:p-8">
+            <Card ref={el => cardRefs.current["ex_analise"] = el} className="border-2 border-cyan-200 dark:border-cyan-900 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-md">
+              <CardHeader className="cursor-pointer hover:bg-cyan-50 dark:hover:bg-cyan-900/10 transition-colors" onClick={() => setExpandedExercise(expandedExercise === "ex_analise" ? null : "ex_analise")}>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-lg md:text-xl text-slate-900 dark:text-white">Exercício: O Corpo Não Mente</CardTitle>
+                  <Button variant="ghost" size="sm" className="rounded-full">
+                    {expandedExercise === "ex_analise" ? "−" : "👇 Abrir"}
+                  </Button>
+                </div>
               </CardHeader>
               {expandedExercise === "ex_analise" && (
-                <CardContent className="space-y-4">
-                  <ol className="list-decimal pl-5 space-y-2 text-slate-700 dark:text-slate-300">
-                    <li>Pegue fotos antigas de família ou observe as pessoas ao seu redor hoje.</li>
-                    <li>Identifique: Quem tem as 'quinas' do Esquizoide?</li>
-                    <li>Identifique: Quem tem o 'bumbum travado' do Masoquista?</li>
-                    <li>Identifique: Quem tem o olhar 'pidão' do Oral?</li>
-                    <li>Anote suas percepções.</li>
-                  </ol>
+                <CardContent className="space-y-6 p-6 animate-fade-in">
+                  <div className="bg-cyan-50 dark:bg-cyan-900/10 p-6 rounded-xl">
+                    <ol className="list-decimal pl-5 space-y-3 text-slate-700 dark:text-slate-300 text-base">
+                      <li>Pegue fotos antigas de família ou observe as pessoas ao seu redor hoje.</li>
+                      <li>Identifique: Quem tem as 'quinas' do Esquizoide?</li>
+                      <li>Identifique: Quem tem o 'bumbum travado' do Masoquista?</li>
+                      <li>Identifique: Quem tem o olhar 'pidão' do Oral?</li>
+                      <li>Anote suas percepções.</li>
+                    </ol>
+                  </div>
                   <textarea
                     placeholder="Anote aqui suas percepções..."
-                    className="w-full p-3 border rounded text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 dark:bg-neutral-800 dark:text-white dark:border-neutral-700"
-                    rows={4}
+                    className="w-full p-4 border rounded-xl text-base focus:outline-none focus:ring-2 focus:ring-cyan-500 dark:bg-neutral-800 dark:text-white dark:border-neutral-700 shadow-inner min-h-[150px]"
                   />
-                  <Button className={`w-full ${completedSections["ex_analise"] ? "bg-green-600" : "bg-cyan-600 hover:bg-cyan-700"}`} onClick={() => toggleSection("ex_analise")}>
-                    {completedSections["ex_analise"] ? <><CheckCircle2 className="w-4 h-4 mr-2" />Exercício Concluído</> : "Marcar como Feito"}
+                  <Button size="lg" className={`w-full py-6 text-base font-bold rounded-xl shadow-md transition-transform hover:scale-[1.02] ${completedSections["ex_analise"] ? "bg-green-600" : "bg-cyan-600 hover:bg-cyan-700"}`} onClick={() => toggleSection("ex_analise")}>
+                    {completedSections["ex_analise"] ? <><CheckCircle2 className="w-5 h-5 mr-2" />Exercício Concluído</> : "Marcar como Feito"}
                   </Button>
                   {completedSections["ex_analise"] && (
-                    <Button size="sm" className="w-full mt-2 bg-slate-800 text-white" onClick={() => document.getElementById('quiz-section')?.scrollIntoView({ behavior: 'smooth' })}>
+                    <Button variant="outline" size="lg" className="w-full mt-2 py-6 text-slate-800 dark:text-white border-slate-300 dark:border-neutral-700 hover:bg-slate-100 dark:hover:bg-neutral-800 rounded-xl font-bold" onClick={() => document.getElementById('quiz-section')?.scrollIntoView({ behavior: 'smooth' })}>
                       Ir para o Quiz 👉
                     </Button>
                   )}
@@ -521,25 +561,30 @@ const CoursePageContent: React.FC = () => {
 
       {/* Quiz Section */}
       <section id="quiz-section">
-        <Card className="border-0 shadow-lg bg-slate-50 dark:bg-neutral-900 border-t-4 border-t-amber-500">
-          <CardHeader>
-            <CardTitle className="text-xl text-slate-900 dark:text-white">Teste seu Conhecimento: Qual é o Traço?</CardTitle>
+        <Card className="border-0 shadow-xl bg-slate-50 dark:bg-neutral-900 border-t-8 border-t-amber-500 rounded-2xl overflow-hidden">
+          <CardHeader className="bg-amber-50 dark:bg-amber-900/10 p-6 md:p-8">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-amber-100 dark:bg-amber-900/30 rounded-full">
+                <Brain className="w-8 h-8 text-amber-600" />
+              </div>
+              <CardTitle className="text-xl md:text-2xl text-slate-900 dark:text-white">Teste seu Conhecimento: Qual é o Traço?</CardTitle>
+            </div>
           </CardHeader>
-          <CardContent className="space-y-6">
+          <CardContent className="space-y-8 p-6 md:p-8">
             {[
               { id: 1, q: "Qual traço tem o corpo quadrado e o 'bumbum travado' como sinal de tensão?", options: ["Oral", "Masoquista", "Rígido"] },
               { id: 2, q: "Quem possui o corpo em formato de triângulo invertido e gosta de liderar?", options: ["Psicopata", "Esquizoide", "Oral"] },
               { id: 3, q: "Qual traço tem formas arredondadas e um olhar que conecta (pidão)?", options: ["Rígido", "Oral", "Masoquista"] }
             ].map((q) => (
-              <div key={q.id} className="space-y-2">
-                <p className="font-medium text-slate-800 dark:text-slate-200">{q.id}. {q.q}</p>
-                <div className="flex gap-2 flex-wrap">
+              <div key={q.id} className="space-y-3 bg-white dark:bg-black p-6 rounded-xl border border-slate-100 dark:border-neutral-800 shadow-sm">
+                <p className="font-bold text-lg text-slate-800 dark:text-slate-200">{q.id}. {q.q}</p>
+                <div className="flex gap-3 flex-wrap">
                   {q.options.map((opt) => (
                     <Button
                       key={opt}
                       variant={quizAnswers[q.id] === opt ? "default" : "outline"}
                       onClick={() => setQuizAnswers(prev => ({ ...prev, [q.id]: opt }))}
-                      className={quizAnswers[q.id] === opt ? "bg-amber-500 hover:bg-amber-600" : ""}
+                      className={`flex-1 min-w-[120px] py-6 rounded-xl font-medium transition-all ${quizAnswers[q.id] === opt ? "bg-amber-500 hover:bg-amber-600 text-white shadow-md scale-105" : "hover:bg-amber-50 dark:hover:bg-amber-900/20"}`}
                     >
                       {opt}
                     </Button>
@@ -547,11 +592,11 @@ const CoursePageContent: React.FC = () => {
                 </div>
               </div>
             ))}
-            <Button onClick={handleQuizSubmit} className="w-full bg-slate-900 text-white hover:bg-slate-800">
+            <Button size="lg" onClick={handleQuizSubmit} className="w-full py-6 text-lg font-bold bg-slate-900 text-white hover:bg-slate-800 rounded-xl shadow-lg transition-transform hover:scale-[1.01]">
               Verificar Respostas
             </Button>
             {quizResult && (
-              <div className="p-4 bg-green-100 text-green-800 rounded font-bold text-center animate-pulse">
+              <div className="p-6 bg-green-100 text-green-800 rounded-xl font-bold text-center text-lg animate-bounce border border-green-200 shadow-sm">
                 {quizResult}
               </div>
             )}
@@ -560,33 +605,33 @@ const CoursePageContent: React.FC = () => {
       </section>
 
       {/* Footer Progress & Points */}
-      <div className="border-t border-gray-200 dark:border-neutral-800 pt-6 pb-8">
-        <div className="flex items-center justify-between mb-4">
+      <div className="border-t border-gray-200 dark:border-neutral-800 pt-8 pb-12">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6 text-center md:text-left">
           <div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white">Progresso do Minicurso</h3>
-            <p className="text-sm text-slate-500 dark:text-slate-400">Continue assim para conquistar seu certificado!</p>
+            <h3 className="text-xl font-bold text-slate-900 dark:text-white">Progresso do Minicurso</h3>
+            <p className="text-slate-500 dark:text-slate-400">Continue assim para conquistar seu certificado!</p>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 bg-slate-100 dark:bg-neutral-800 px-6 py-3 rounded-full">
             <Trophy className="w-6 h-6 text-amber-500" />
-            <span className="text-xl font-bold text-slate-900 dark:text-white">{userPoints}</span>
-            <span className="text-sm text-slate-600 dark:text-slate-400">pontos</span>
+            <span className="text-2xl font-bold text-slate-900 dark:text-white">{userPoints}</span>
+            <span className="text-sm font-medium text-slate-600 dark:text-slate-400">pontos</span>
           </div>
         </div>
-        <div className="space-y-2">
+        <div className="space-y-3">
           <div className="flex justify-between items-center">
-            <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{completedCount} de {totalSections} lições</span>
-            <span className="text-sm text-slate-600 dark:text-slate-400">{Math.round(progressPercentage)}%</span>
+            <span className="text-sm font-bold text-slate-700 dark:text-slate-300">{completedCount} de {totalSections} lições</span>
+            <span className="text-sm font-bold text-slate-600 dark:text-slate-400">{Math.round(progressPercentage)}%</span>
           </div>
-          <Progress value={progressPercentage} className="h-2" />
+          <Progress value={progressPercentage} className="h-3 rounded-full" />
         </div>
       </div>
 
       {/* Final Celebration */}
       {progressPercentage === 100 && (
-        <div className="text-center py-8 animate-bounce">
-          <div className="inline-block bg-gradient-to-r from-amber-400 to-orange-500 text-white px-8 py-4 rounded-lg shadow-lg">
-            <p className="text-lg font-bold mb-2">🎉 Parabéns!</p>
-            <p className="text-sm">Você dominou o Raio-X Invisível! Nos vemos na Aula 2.</p>
+        <div className="text-center py-12 animate-bounce">
+          <div className="inline-block bg-gradient-to-r from-amber-400 to-orange-500 text-white px-10 py-6 rounded-2xl shadow-xl transform hover:scale-110 transition-transform cursor-pointer">
+            <p className="text-2xl font-bold mb-2">🎉 Parabéns!</p>
+            <p className="text-lg">Você dominou o Raio-X Invisível! Nos vemos na Aula 2.</p>
           </div>
         </div>
       )}
