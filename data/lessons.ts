@@ -48,7 +48,7 @@ export const MINICOURSE_MODULE: Module = {
       title: "Como viver de leitura corporal?",
       releaseDate: `${CURRENT_YEAR}-12-07T15:00:00`,
       duration: "60:00",
-      isLocked: true,
+      isLocked: false,
     }
   ]
 };

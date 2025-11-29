@@ -143,3 +143,33 @@ export interface LessonContent {
   header: HeaderInfo;
   sections: Section[];
 }
+
+export interface PageStructure {
+  banner: {
+    image_url: string;
+    alt_text: string;
+  };
+  header_info: {
+    badge: {
+      text: string;
+      color: string;
+    };
+    title: string;
+  };
+  lesson_list: {
+    title: string;
+    lessons: any[]; // Keeping it loose for now as we use courseModules for logic
+  };
+  video_player: {
+    placeholder_text: string;
+    locked_message: {
+      title: string;
+      text: string;
+    };
+  };
+}
+
+export interface FullLessonData {
+  page_structure: PageStructure;
+  lesson_content: LessonContent;
+}

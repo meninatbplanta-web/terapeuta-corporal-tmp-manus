@@ -6,10 +6,11 @@ import CoursePageContent from '../components/CoursePageContent';
 import LoginModal from '../components/LoginModal';
 import { isLessonAvailable, formatReleaseDate } from '../constants';
 import { LESSONS, LESSON_CONTENT, ALL_MODULES, COURSES } from '../data/lessons';
-import { TabOption, LessonContent } from '../types';
+import { TabOption, LessonContent, FullLessonData } from '../types';
 import DynamicLessonContent from '../components/DynamicLessonContent';
 import novoJson from '../data/novo.json';
 import novo2Json from '../data/novo2.json';
+import novo3Json from '../data/novo3.json';
 
 const LessonPlayer: React.FC = () => {
   const { lessonId } = useParams<{ lessonId: string }>();
@@ -25,6 +26,16 @@ const LessonPlayer: React.FC = () => {
   const currentLessonId = Number(lessonId);
   const currentLesson = LESSONS.find(l => l.id === currentLessonId);
   const currentCourse = COURSES.find(c => c.id === currentLesson?.courseId);
+
+  // Map lessons to their JSON data
+  const lessonDataMap: Record<number, FullLessonData> = {
+    1: novoJson as unknown as FullLessonData,
+    2: novoJson as unknown as FullLessonData,
+    3: novo2Json as unknown as FullLessonData,
+    4: novo3Json as unknown as FullLessonData,
+  };
+
+  const currentJson = lessonDataMap[currentLessonId];
 
   // Validation: if lesson doesn't exist
   useEffect(() => {
@@ -162,10 +173,16 @@ const LessonPlayer: React.FC = () => {
       ) : (
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 dark:bg-neutral-950 text-center p-6 transition-colors duration-300">
           <Lock size={48} className="text-gray-400 dark:text-neutral-700 mb-4" />
-          <h3 className="text-xl font-heading font-bold text-gray-700 dark:text-neutral-300 mb-2">Aula Bloqueada</h3>
+          <h3 className="text-xl font-heading font-bold text-gray-700 dark:text-neutral-300 mb-2">
+            {currentJson?.page_structure?.video_player?.locked_message?.title || "Aula Bloqueada"}
+          </h3>
           <p className="text-gray-500 dark:text-neutral-500 max-w-md mx-auto">
             {currentLesson.courseId === 'minicourse'
-              ? <span>A aula estará disponível em <span className="text-brand-red">{formatReleaseDate(currentLesson.releaseDate || '')}</span>.</span>
+              ? <span>
+                {currentJson?.page_structure?.video_player?.locked_message?.text ||
+                  <>A aula estará disponível em <span className="text-brand-red">{formatReleaseDate(currentLesson.releaseDate || '')}</span>.</>
+                }
+              </span>
               : <span>Conteúdo exclusivo para alunos matriculados na formação.</span>
             }
           </p>
@@ -185,8 +202,8 @@ const LessonPlayer: React.FC = () => {
             {/* Banner Image */}
             <div className="relative w-full rounded-xl overflow-hidden shadow-lg mb-8 group">
               <img
-                src="https://priscilla-moreira.com/imagens/minicurso-banner1.jpg"
-                alt="Banner do Curso"
+                src={currentJson?.page_structure?.banner?.image_url || "https://priscilla-moreira.com/imagens/minicurso-banner1.jpg"}
+                alt={currentJson?.page_structure?.banner?.alt_text || "Banner do Curso"}
                 className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -195,11 +212,13 @@ const LessonPlayer: React.FC = () => {
             {/* Header Info */}
             <div className="mb-8 md:mb-10 text-center md:text-left">
               <div className="inline-flex items-center gap-2 mb-4 bg-gray-100 dark:bg-neutral-800/80 px-4 py-1.5 rounded-full border border-gray-200 dark:border-neutral-700 backdrop-blur-sm">
-                <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.5)] animate-pulse"></div>
-                <span className="text-[10px] md:text-xs font-bold text-gray-600 dark:text-neutral-300 uppercase tracking-widest">MINICURSO GRATUITO</span>
+                <div className={`w-2 h-2 rounded-full shadow-[0_0_8px_rgba(34,197,94,0.5)] animate-pulse ${currentJson?.page_structure?.header_info?.badge?.color === 'green' ? 'bg-green-500' : 'bg-green-500'}`}></div>
+                <span className="text-[10px] md:text-xs font-bold text-gray-600 dark:text-neutral-300 uppercase tracking-widest">
+                  {currentJson?.page_structure?.header_info?.badge?.text || "MINICURSO GRATUITO"}
+                </span>
               </div>
               <h1 className="text-2xl md:text-4xl font-heading font-bold text-gray-900 dark:text-white leading-tight mb-2">
-                {currentCourse?.title}
+                {currentJson?.page_structure?.header_info?.title || currentCourse?.title}
               </h1>
               <p className="text-sm md:text-base text-gray-500 dark:text-neutral-400 max-w-2xl mx-auto md:mx-0">
                 Domine a leitura corporal e transforme sua percepção sobre as pessoas.
@@ -209,7 +228,9 @@ const LessonPlayer: React.FC = () => {
             {/* Inline Lesson List */}
             <div className="mb-12">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xs font-bold text-gray-400 dark:text-neutral-500 uppercase tracking-widest">CONTEÚDO DO MINICURSO</h3>
+                <h3 className="text-xs font-bold text-gray-400 dark:text-neutral-500 uppercase tracking-widest">
+                  {currentJson?.page_structure?.lesson_list?.title || "CONTEÚDO DO MINICURSO"}
+                </h3>
                 <span className="text-xs text-gray-400 dark:text-neutral-500">{courseModules[0]?.lessons.length} Aulas</span>
               </div>
 
@@ -269,35 +290,44 @@ const LessonPlayer: React.FC = () => {
               <div className="p-6 md:p-10">
                 <div className="mb-8 border-b border-gray-100 dark:border-neutral-800 pb-6">
                   <h1 className="text-2xl md:text-4xl font-heading font-bold text-slate-900 dark:text-white mb-2 leading-tight">
-                    Aula 1: O Raio-X Invisível
+                    {currentJson?.lesson_content?.metadata?.title || `Aula ${currentLessonId}: ${currentLesson.title}`}
                   </h1>
                   <p className="text-lg md:text-xl text-slate-500 dark:text-slate-400">
-                    O Mapa da Mente Humana
+                    {currentJson?.lesson_content?.metadata?.subtitle || "O Mapa da Mente Humana"}
                   </p>
                 </div>
 
-                {/* Welcome Box */}
-                <div className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white p-6 md:p-8 rounded-2xl shadow-lg mb-8 border-l-4 border-brand-red relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                    <BrainCircuit size={120} />
-                  </div>
-                  <div className="relative z-10">
-                    <h2 className="text-xl md:text-2xl font-bold mb-4 leading-snug">Bem-vindo ao mundo que ninguém te contou que existia.</h2>
-                    <div className="space-y-4 text-gray-100/90 text-sm md:text-base leading-relaxed">
-                      <p>
-                        Você está prestes a receber a <strong className="text-brand-red bg-white/10 px-1 rounded">Chave Mestra</strong> da mente humana. Uma habilidade que mudará para sempre a forma como você enxerga as pessoas.
-                      </p>
-                      <p>
-                        Imagine olhar para qualquer um e — sem que seja dita uma única palavra — saber exatamente como aquela pessoa pensa, sente e age. O <strong>Raio-X Invisível</strong> não é apenas teoria; é o poder de ler a mente através do corpo.
-                      </p>
-                      <p className="font-bold text-white pt-2 border-t border-white/10">
-                        Prepare-se: depois dessa aula, você nunca mais conseguirá "desver" a verdade.
-                      </p>
+                {/* Welcome Box - Only show if not dynamic content, OR if dynamic content doesn't handle it? 
+                    Actually DynamicLessonContent handles the 'intro' section.
+                    But the hardcoded version has a 'Welcome Box'.
+                    If we use DynamicLessonContent, we might not need this hardcoded Welcome Box.
+                    However, for Lesson 1, it's hardcoded.
+                    For Lesson 2, 3, 4, DynamicLessonContent renders 'intro'.
+                    So we should ONLY render this Welcome Box for Lesson 1 (or if no dynamic content).
+                */}
+                {currentLessonId === 1 && (
+                  <div className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white p-6 md:p-8 rounded-2xl shadow-lg mb-8 border-l-4 border-brand-red relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                      <BrainCircuit size={120} />
+                    </div>
+                    <div className="relative z-10">
+                      <h2 className="text-xl md:text-2xl font-bold mb-4 leading-snug">Bem-vindo ao mundo que ninguém te contou que existia.</h2>
+                      <div className="space-y-4 text-gray-100/90 text-sm md:text-base leading-relaxed">
+                        <p>
+                          Você está prestes a receber a <strong className="text-brand-red bg-white/10 px-1 rounded">Chave Mestra</strong> da mente humana. Uma habilidade que mudará para sempre a forma como você enxerga as pessoas.
+                        </p>
+                        <p>
+                          Imagine olhar para qualquer um e — sem que seja dita uma única palavra — saber exatamente como aquela pessoa pensa, sente e age. O <strong>Raio-X Invisível</strong> não é apenas teoria; é o poder de ler a mente através do corpo.
+                        </p>
+                        <p className="font-bold text-white pt-2 border-t border-white/10">
+                          Prepare-se: depois dessa aula, você nunca mais conseguirá "desver" a verdade.
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
 
-                {/* Premiere Notice */}
+                {/* Premiere Notice - Hardcoded for now, or could come from JSON */}
                 <div className="flex flex-col md:flex-row items-center justify-center gap-3 text-brand-red font-bold mb-8 bg-red-50 dark:bg-red-900/10 p-4 rounded-xl border border-red-100 dark:border-red-900/20 text-center md:text-left animate-pulse-slow">
                   <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded-full">
                     <Lock size={20} />
@@ -307,22 +337,25 @@ const LessonPlayer: React.FC = () => {
 
                 {renderVideoSection()}
 
-                {/* CTA Below Video */}
-                <div className="mb-10 p-6 md:p-8 bg-slate-50 dark:bg-neutral-900/30 rounded-2xl border border-slate-200 dark:border-neutral-800 text-center md:text-left">
-                  <h3 className="font-heading font-bold text-xl md:text-2xl text-slate-900 dark:text-white mb-3">
-                    Não espere: Comece a usar a Chave Mestra agora.
-                  </h3>
-                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm md:text-base">
-                    Enquanto a estreia não acontece, você tem acesso antecipado aos nossos arquivos confidenciais. Acesse o <strong>Resumo da Aula</strong> e estude os <strong>Traços de Caráter</strong> nos botões abaixo para chegar na aula com vantagem total.
-                  </p>
-                </div>
+                {/* CTA Below Video - Only for Lesson 1? */}
+                {currentLessonId === 1 && (
+                  <div className="mb-10 p-6 md:p-8 bg-slate-50 dark:bg-neutral-900/30 rounded-2xl border border-slate-200 dark:border-neutral-800 text-center md:text-left">
+                    <h3 className="font-heading font-bold text-xl md:text-2xl text-slate-900 dark:text-white mb-3">
+                      Não espere: Comece a usar a Chave Mestra agora.
+                    </h3>
+                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm md:text-base">
+                      Enquanto a estreia não acontece, você tem acesso antecipado aos nossos arquivos confidenciais. Acesse o <strong>Resumo da Aula</strong> e estude os <strong>Traços de Caráter</strong> nos botões abaixo para chegar na aula com vantagem total.
+                    </p>
+                  </div>
+                )}
 
                 {/* Conteúdo da Aula 1 - Inserido do repositório analise-corporal-page */}
                 {currentLessonId === 1 && <CoursePageContent />}
                 {currentLessonId === 2 && <DynamicLessonContent data={novoJson.lesson_content as unknown as LessonContent} />}
                 {currentLessonId === 3 && <DynamicLessonContent data={novo2Json.lesson_content as unknown as LessonContent} />}
+                {currentLessonId === 4 && <DynamicLessonContent data={novo3Json.lesson_content as unknown as LessonContent} />}
 
-                {isContentUnlocked && currentLessonId !== 1 && currentLessonId !== 2 && (
+                {isContentUnlocked && currentLessonId !== 1 && currentLessonId !== 2 && currentLessonId !== 3 && currentLessonId !== 4 && (
                   <div>
                     {/* Simplified Tabs for Minicurso */}
                     <div className="mb-8 overflow-x-auto scrollbar-hide -mx-6 px-6 md:mx-0 md:px-0">
