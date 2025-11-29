@@ -1,0 +1,468 @@
+Com certeza. A estrutura JSON está sólida e a copy está aprovada.
+
+Agora, vamos focar em transformar isso em uma **Experiência Mobile Premium**. O segredo aqui não é só o que mostramos, mas **como** mostramos na tela pequena.
+
+Abaixo está o JSON completo com a estrutura de dados e, mais importante, adicionei chaves de estilo (`style_hints`) e descrições detalhadas para que o desenvolvedor saiba exatamente como renderizar cada componente no celular para maximizar a retenção e o engajamento.
+
+### Principais Melhorias de UX para Mobile (Refletidas no JSON):
+
+1.  **Player de Vídeo como Hero:** No mobile, o player (com o aviso de estreia) deve ser a primeira coisa que o usuário vê, ocupando quase toda a tela acima da dobra.
+2.  **Gamificação Sóbria e Compacta:** A barra de progresso e os badges foram desenhados para serem uma barra fina e fixa no topo, sempre visível, sem roubar espaço do conteúdo.
+3.  **Navegação "App-Like":** Os botões de navegação (`content_index`) não são uma lista, mas um **grid de 2 colunas** com ícones grandes, parecendo a tela inicial de um aplicativo. Isso facilita o toque.
+4.  **Conteúdo em "Sanfona" (Accordion):** Os conteúdos das abas (Teoria, Perfis, etc.) não devem aparecer todos abertos de uma vez. Eles devem ser seções expansíveis para evitar que a página fique com um scroll infinito e cansativo.
+5.  **Tipografia Escaneável:** Títulos grandes, parágrafos curtos e muito espaço em branco. O usuário lê "passando o olho" no celular.
+6.  **Paleta de Cores:** Cores profissionais e sóbrias (azul marinho, cinza, branco) com acentos de cor para os badges e botões de ação (azul vibrante para CTA).
+
+-----
+
+### O Novo JSON Estrutural e de Estilo
+
+```json
+{
+    "page_settings": {
+        "theme": {
+            "primaryColor": "#003366",
+            "secondaryColor": "#0055A4",
+            "accentColor": "#FDB813",
+            "backgroundColor": "#F4F7F9",
+            "textColor": "#333333",
+            "fontFamily": "Inter, sans-serif"
+        },
+        "layout": "mobile_first",
+        "seo": {
+            "title": "Aula 1: O Raio-X Invisível - Formação em Análise Corporal",
+            "description": "Descubra os fundamentos científicos da leitura corporal nesta aula inaugural gratuita com Priscilla Moreira."
+        }
+    },
+    "page_structure": {
+        "header_bar": {
+            "style_hints": {
+                "type": "sticky_top_bar",
+                "height": "compact"
+            },
+            "logo": {
+                "image_url": "https://priscilla-moreira.com/imagens/logo-terapeuta-small.png",
+                "alt_text": "Priscilla Moreira - Terapeuta"
+            },
+            "badge": {
+                "text": "FORMAÇÃO GRATUITA",
+                "style": {
+                    "backgroundColor": "#E3F2FD",
+                    "textColor": "#0055A4",
+                    "fontSize": "xs",
+                    "fontWeight": "bold"
+                }
+            }
+        },
+        "video_player_hero": {
+            "style_hints": {
+                "position": "above_the_fold",
+                "aspectRatio": "16:9",
+                "overlayStyle": "dark_gradient"
+            },
+            "lesson_title": "Aula 1: Fundamentos da Leitura Biológica",
+            "status_label": "ESTREIA EXCLUSIVA",
+            "thumbnail_url": "https://priscilla-moreira.com/imagens/thumb-aula1-estreia.jpg",
+            "locked_message": {
+                "icon": "🔒",
+                "title": "📅 AULA INAUGURAL AGENDADA",
+                "text": "A transmissão oficial começará dia 01/12 às 20h. Prepare seu material.",
+                "style": {
+                    "textColor": "#FFFFFF",
+                    "backgroundColor": "rgba(0, 51, 102, 0.85)"
+                }
+            }
+        },
+        "gamification_bar": {
+            "style_hints": {
+                "type": "progress_tracker",
+                "position": "below_video",
+                "layout": "horizontal_compact"
+            },
+            "label": "Progresso da Certificação:",
+            "progress_percentage": 10,
+            "badges": [
+                {
+                    "id": "iniciante",
+                    "label": "Estudante",
+                    "icon": "📚",
+                    "status": "active",
+                    "activeColor": "#0055A4"
+                },
+                {
+                    "id": "explorador",
+                    "label": "Analista Jr.",
+                    "icon": "📝",
+                    "status": "locked",
+                    "activeColor": "#0055A4"
+                },
+                {
+                    "id": "mestre",
+                    "label": "Certificado",
+                    "icon": "🎓",
+                    "status": "locked",
+                    "activeColor": "#0055A4"
+                }
+            ]
+        }
+    },
+    "lesson_content": {
+        "sections": [
+            {
+                "id": "intro_text",
+                "type": "text_block",
+                "style_hints": {
+                    "padding": "medium",
+                    "backgroundColor": "#FFFFFF",
+                    "cardShadow": "soft"
+                },
+                "title": "Bem-vindo à sua formação técnica",
+                "subtitle": "Você não precisa de intuição. Você precisa de método.",
+                "content": [
+                    "Muitos acreditam que 'ler pessoas' é um dom. Nesta formação, provaremos que é ciência. O formato do corpo humano é determinado por um processo biológico exato.",
+                    "Tudo o que você viveu na primeira infância moldou sua anatomia. O corpo é, literalmente, a parte visível da mente. Como futuro analista, você aprenderá a traduzir esse mapa.",
+                    "**Instrução de Estudo:** Enquanto a aula inaugural não é liberada, utilize o material técnico abaixo para se familiarizar com os 5 Traços de Caráter. Isso facilitará seu aprendizado no dia 01/12."
+                ]
+            },
+            {
+                "id": "content_navigation_grid",
+                "type": "navigation_grid",
+                "style_hints": {
+                    "titleStyle": "section_header",
+                    "gridColumns": 2,
+                    "buttonStyle": "large_icon_card",
+                    "backgroundColor": "#F4F7F9",
+                    "padding": "medium"
+                },
+                "title": "Material Preparatório Disponível:",
+                "items": [
+                    {
+                        "label": "Áudio: Introdução",
+                        "icon": "Headphones",
+                        "target": "audio_summary",
+                        "iconColor": "#0055A4"
+                    },
+                    {
+                        "label": "Síntese Visual",
+                        "icon": "Video",
+                        "target": "video_summary",
+                        "iconColor": "#0055A4"
+                    },
+                    {
+                        "label": "Base Teórica",
+                        "icon": "BookOpen",
+                        "target": "fundamentos_1",
+                        "tab": "fundamentos",
+                        "iconColor": "#0055A4"
+                    },
+                    {
+                        "label": "Mapeamento dos Perfis",
+                        "icon": "Brain",
+                        "target": "esquizoide",
+                        "tab": "tracos_carater",
+                        "iconColor": "#0055A4"
+                    },
+                    {
+                        "label": "Psicossomática (Saúde)",
+                        "icon": "Activity",
+                        "target": "alerta_saude_content",
+                        "tab": "alerta_saude",
+                        "iconColor": "#FF3B30"
+                    },
+                    {
+                        "label": "Prática de Observação",
+                        "icon": "FileText",
+                        "target": "exercises-section",
+                        "iconColor": "#0055A4"
+                    },
+                    {
+                        "label": "Teste de Conhecimento",
+                        "icon": "CheckCircle2",
+                        "target": "quiz-section",
+                        "iconColor": "#28A745"
+                    }
+                ]
+            },
+            {
+                "id": "multimedia_section",
+                "type": "expandable_section",
+                "title": "Resumos Multimídia",
+                "style_hints": {
+                    "defaultState": "closed",
+                    "backgroundColor": "#FFFFFF"
+                },
+                "items": [
+                    {
+                        "id": "audio_summary",
+                        "type": "media_player_card",
+                        "mediaType": "audio",
+                        "title": "Resumo Executivo (Áudio)",
+                        "subtitle": "Conceitos base para ouvir no trânsito (12 min)",
+                        "url": "https://priscilla-moreira.com/imagens/audio-cpl1.m4a",
+                        "buttonText": "Concluir Áudio",
+                        "buttonStyle": "primary"
+                    },
+                    {
+                        "id": "video_summary",
+                        "type": "media_player_card",
+                        "mediaType": "video",
+                        "title": "Síntese Visual da Aula",
+                        "subtitle": "Visão geral das Armaduras de Caráter",
+                        "url": "https://priscilla-moreira.com/imagens/video-cpl1.mp4",
+                        "buttonText": "Concluir Vídeo",
+                        "buttonStyle": "primary"
+                    }
+                ]
+            },
+            {
+                "id": "fundamentos_section",
+                "type": "expandable_section",
+                "title": "Base Teórica",
+                "style_hints": {
+                    "defaultState": "closed",
+                    "backgroundColor": "#FFFFFF"
+                },
+                "content": [
+                    {
+                        "id": "fundamentos_1",
+                        "type": "info_card",
+                        "title": "A Biologia do Comportamento",
+                        "text": "O corpo não é aleatório. Ele reflete as necessidades neurológicas vividas em 5 fases de desenvolvimento. Se a necessidade não foi atendida, o corpo cria uma defesa física e comportamental.",
+                        "buttonText": "Ler Próximo"
+                    },
+                    {
+                        "id": "fundamentos_key",
+                        "type": "highlight_box",
+                        "style_hints": {
+                            "backgroundColor": "#E3F2FD",
+                            "borderColor": "#0055A4",
+                            "icon": "💡"
+                        },
+                        "title": "Conceito Chave: Mielinização",
+                        "text": "Processo que ocorre do útero aos 5 anos. Cada etapa molda uma região do corpo e define o traço de caráter predominante do indivíduo.",
+                        "buttonText": "Entendi o Conceito",
+                        "buttonStyle": "outline_primary"
+                    }
+                ]
+            },
+            {
+                "id": "tracos_section",
+                "type": "expandable_section",
+                "title": "Os 5 Perfis da Mente",
+                "style_hints": {
+                    "defaultState": "closed",
+                    "layout": "carousel_or_stack",
+                    "backgroundColor": "#FFFFFF"
+                },
+                "content": [
+                    {
+                        "id": "esquizoide",
+                        "type": "profile_card",
+                        "style_hints": {
+                            "accentColor": "#9C27B0",
+                            "layout": "compact_mobile"
+                        },
+                        "name": "1. O ESQUIZOIDE (Racional)",
+                        "archetype": "Foco: Ideias e Lógica",
+                        "icon": "Brain",
+                        "body": "Magro, alongado, articulações visíveis. Energia concentrada na cabeça.",
+                        "pain": "Dor Existencial: Rejeição.",
+                        "power": "Recurso: Criatividade e raciocínio lógico.",
+                        "story": "Perfil analítico, prefere o mundo interno. Evita contato físico excessivo.",
+                        "deal": "Necessidade: Respeito ao espaço pessoal."
+                    },
+                    {
+                        "id": "oral",
+                        "type": "profile_card",
+                        "style_hints": {
+                            "accentColor": "#E91E63",
+                            "layout": "compact_mobile"
+                        },
+                        "name": "2. O ORAL (Comunicador)",
+                        "archetype": "Foco: Sentimentos e Conexão",
+                        "icon": "Heart",
+                        "body": "Formas arredondadas, aspecto 'macio'. Olhar conectivo.",
+                        "pain": "Dor Existencial: Abandono.",
+                        "power": "Recurso: Acolhimento, comunicação e empatia.",
+                        "story": "Perfil sensitivo, compreende o mundo através das sensações e relações.",
+                        "deal": "Necessidade: Atenção e escuta ativa."
+                    },
+                    {
+                        "id": "psicopata",
+                        "type": "profile_card",
+                        "style_hints": {
+                            "accentColor": "#FF9800",
+                            "layout": "compact_mobile"
+                        },
+                        "name": "3. O PSICOPATA (Articulador)",
+                        "archetype": "Foco: Liderança e Negociação",
+                        "icon": "Trophy",
+                        "body": "Triângulo invertido (ombros largos). Postura imponente.",
+                        "pain": "Dor Existencial: Manipulação.",
+                        "power": "Recurso: Capacidade de liderar e vender ideias.",
+                        "story": "Perfil pragmático, age visando resultados e trocas justas.",
+                        "deal": "Necessidade: Clareza sobre ganhos e benefícios."
+                    },
+                    {
+                        "id": "masoquista",
+                        "type": "profile_card",
+                        "style_hints": {
+                            "accentColor": "#607D8B",
+                            "layout": "compact_mobile"
+                        },
+                        "name": "4. O MASOQUISTA (Planejador)",
+                        "archetype": "Foco: Segurança e Detalhes",
+                        "icon": "Shield",
+                        "body": "Quadrado, musculatura compacta e tensa. Bumbum achatado.",
+                        "pain": "Dor Existencial: Humilhação.",
+                        "power": "Recurso: Consistência, lealdade e força de execução.",
+                        "story": "Perfil cauteloso, retém emoções para evitar erros e exposição.",
+                        "deal": "Necessidade: Segurança e ausência de pressão pública."
+                    },
+                    {
+                        "id": "rigido",
+                        "type": "profile_card",
+                        "style_hints": {
+                            "accentColor": "#F44336",
+                            "layout": "compact_mobile"
+                        },
+                        "name": "5. O RÍGIDO (Executor)",
+                        "archetype": "Foco: Agilidade e Perfeição",
+                        "icon": "Star",
+                        "body": "Harmônico, curvas definidas (violão). Aparência atlética.",
+                        "pain": "Dor Existencial: Traição/Troca.",
+                        "power": "Recurso: Competitividade e busca pela excelência.",
+                        "story": "Perfil dinâmico, busca ser o melhor para garantir seu lugar.",
+                        "deal": "Necessidade: Reconhecimento de competência."
+                    }
+                ]
+            },
+            {
+                "id": "alerta_saude_section",
+                "type": "expandable_section",
+                "title": "Psicossomática (Saúde)",
+                "style_hints": {
+                    "defaultState": "closed",
+                    "backgroundColor": "#FFF8F8",
+                    "headerTextColor": "#D32F2F"
+                },
+                "content": [
+                    {
+                        "id": "alerta_saude_content",
+                        "type": "alert_card",
+                        "style_hints": {
+                            "icon": "⚠️",
+                            "backgroundColor": "#FFFFFF",
+                            "borderColor": "#D32F2F"
+                        },
+                        "title": "Sintomas Físicos e Emoções",
+                        "subtitle": "Quando o traço entra na dor",
+                        "text": "Como terapeuta, você identificará que doenças recorrentes muitas vezes são gritos do traço de caráter em sofrimento. O corpo somatiza o que a mente cala.",
+                        "list": [
+                            "Gastrite nervosa (Oral na dor)",
+                            "Enxaqueca crônica (Esquizoide na dor)",
+                            "Travamento lombar (Masoquista na dor)"
+                        ],
+                        "highlightBox": {
+                            "text": "Na AULA 2, aprofundaremos na CAUSA EMOCIONAL DAS DOENÇAS. Essencial para diagnósticos precisos.",
+                            "style": {
+                                "backgroundColor": "#FFEBEE",
+                                "textColor": "#D32F2F",
+                                "fontWeight": "bold"
+                            }
+                        },
+                        "buttonText": "Entendi a Relação",
+                        "buttonStyle": "danger"
+                    }
+                ]
+            },
+            {
+                "id": "exercises_section",
+                "type": "expandable_section",
+                "title": "Prática de Observação",
+                "style_hints": {
+                    "defaultState": "closed",
+                    "backgroundColor": "#FFFFFF"
+                },
+                "content": {
+                    "id": "ex_analise",
+                    "type": "exercise_card",
+                    "title": "Exercício: Identificação Preliminar",
+                    "instructions": [
+                        "Observe pessoas ao seu redor ou fotos (sem julgar, apenas analise tecnicamente).",
+                        "Identifique: Quem possui formas mais 'quadradas' e tensas?",
+                        "Identifique: Quem possui formas arredondadas e olhar 'conectivo'?",
+                        "Anote suas hipóteses no campo abaixo para fixar o conteúdo."
+                    ],
+                    "placeholder": "Digite suas anotações técnicas aqui...",
+                    "buttonText": "Registrar Análise",
+                    "buttonStyle": "primary"
+                }
+            },
+            {
+                "id": "quiz_section",
+                "type": "expandable_section",
+                "title": "Teste de Conhecimento Técnico",
+                "style_hints": {
+                    "defaultState": "closed",
+                    "backgroundColor": "#F1F8E9",
+                    "headerTextColor": "#388E3C"
+                },
+                "content": {
+                    "id": "quiz_1",
+                    "type": "quiz_card",
+                    "questions": [
+                        {
+                            "id": 1,
+                            "question": "Qual traço apresenta morfologia quadrada e tensão muscular como defesa?",
+                            "options": [
+                                "Oral",
+                                "Masoquista",
+                                "Rígido"
+                            ],
+                            "correctAnswer": "Masoquista"
+                        },
+                        {
+                            "id": 2,
+                            "question": "O corpo em triângulo invertido (ombros largos) é característico de qual perfil?",
+                            "options": [
+                                "Psicopata",
+                                "Esquizoide",
+                                "Oral"
+                            ],
+                            "correctAnswer": "Psicopata"
+                        },
+                        {
+                            "id": 3,
+                            "question": "Qual traço tem a 'comunicação e o sentir' como principal recurso?",
+                            "options": [
+                                "Rígido",
+                                "Oral",
+                                "Masoquista"
+                            ],
+                            "correctAnswer": "Oral"
+                        }
+                    ]
+                }
+            },
+            {
+                "id": "footer",
+                "type": "simple_footer",
+                "style_hints": {
+                    "backgroundColor": "#003366",
+                    "textColor": "#FFFFFF",
+                    "padding": "large",
+                    "textAlign": "center"
+                },
+                "title": "Status da Formação",
+                "subtitle": "Continue avançando. Sua certificação profissional te espera.",
+                "links": [
+                    {"label": "Termos de Uso", "url": "/termos"},
+                    {"label": "Política de Privacidade", "url": "/privacidade"}
+                ],
+                "copyright": "© 2025 Priscilla Moreira. Todos os direitos reservados."
+            }
+        ]
+    }
+}
+```

@@ -1,0 +1,324 @@
+{
+    "page_structure": {
+        "banner": {
+            "image_url": "https://priscilla-moreira.com/imagens/minicurso-banner1.jpg",
+            "alt_text": "Banner do Curso"
+        },
+        "header_info": {
+            "badge": {
+                "text": "MINICURSO GRATUITO",
+                "color": "green"
+            },
+            "title": "Fundamentos da Análise Corporal"
+        },
+        "lesson_list": {
+            "title": "CONTEÚDO DO MINICURSO",
+            "lessons": []
+        },
+        "video_player": {
+            "placeholder_text": "ESTREIA DIA 01/12 às 20hs",
+            "locked_message": {
+                "title": "Aula Bloqueada",
+                "text": "A aula estará disponível em breve."
+            }
+        }
+    },
+    "lesson_content": {
+        "metadata": {
+            "title": "Aula 1: Fundamentos da Análise Corporal",
+            "subtitle": "O Mapa da Mente Humana",
+            "totalSections": 11,
+            "gamification": {
+                "pointsPerSection": 50,
+                "badges": {
+                    "iniciante": {
+                        "label": "Iniciante",
+                        "icon": "🌱",
+                        "color": "bg-green-100 text-green-800",
+                        "threshold": 3
+                    },
+                    "explorador": {
+                        "label": "Explorador",
+                        "icon": "🔍",
+                        "color": "bg-blue-100 text-blue-800",
+                        "threshold": 6
+                    },
+                    "mestre": {
+                        "label": "Mestre",
+                        "icon": "👑",
+                        "color": "bg-purple-100 text-purple-800",
+                        "threshold": 11
+                    }
+                }
+            }
+        },
+        "header": {
+            "progressLabel": "Seu Progresso",
+            "certificateInfo": {
+                "title": "Certificado Gratuito",
+                "text": "Complete todas as lições até a Aula 4 para liberar seu Certificado Gratuito."
+            }
+        },
+        "sections": [
+            {
+                "id": "intro",
+                "type": "intro",
+                "title": "Bem-vindo à Visão de Raio-X",
+                "subtitle": "\"Eu não tenho bola de cristal. Eu tenho técnica.\"",
+                "content": [
+                    "Nesta aula, você descobriu que ler pessoas não é um dom sobrenatural. O formato do corpo humano é determinado por um processo biológico chamado mielinização da medula espinhal.",
+                    "\"Tudo o que você viveu, desde o útero até os 5 anos de idade, moldou o corpo que você tem hoje. O seu corpo é uma armadura criada para proteger a sua mente das dores que você sentiu na infância.\""
+                ]
+            },
+            {
+                "id": "navigation",
+                "type": "navigation",
+                "title": "Navegação Rápida",
+                "items": [
+                    {
+                        "label": "Resumo em Áudio",
+                        "icon": "Headphones",
+                        "target": "audio_summary"
+                    },
+                    {
+                        "label": "Resumo em Vídeo",
+                        "icon": "Video",
+                        "target": "video_summary"
+                    },
+                    {
+                        "label": "Fundamentos",
+                        "icon": "BookOpen",
+                        "target": "fundamentos_1",
+                        "tab": "fundamentos"
+                    },
+                    {
+                        "label": "Traços de Caráter",
+                        "icon": "Brain",
+                        "target": "esquizoide",
+                        "tab": "tracos_carater"
+                    },
+                    {
+                        "label": "Alerta Saúde",
+                        "icon": "AlertTriangle",
+                        "target": "alerta_saude_content",
+                        "tab": "alerta_saude"
+                    },
+                    {
+                        "label": "Dever de Casa",
+                        "icon": "FileText",
+                        "target": "exercises-section"
+                    },
+                    {
+                        "label": "Teste seu Conhecimento",
+                        "icon": "CheckCircle2",
+                        "target": "quiz-section"
+                    }
+                ]
+            },
+            {
+                "id": "multimedia",
+                "type": "multimedia",
+                "items": [
+                    {
+                        "id": "audio_summary",
+                        "type": "audio",
+                        "title": "Resumo em Áudio",
+                        "subtitle": "Para ouvir no trânsito (12 min)",
+                        "url": "https://priscilla-moreira.com/imagens/audio-cpl1.m4a",
+                        "buttonText": "Marcar como ouvido"
+                    },
+                    {
+                        "id": "video_summary",
+                        "type": "video",
+                        "title": "Resumo em Vídeo",
+                        "subtitle": "O Guia das Armaduras",
+                        "url": "https://priscilla-moreira.com/imagens/video-cpl1.mp4",
+                        "buttonText": "Marcar como assistido"
+                    }
+                ]
+            },
+            {
+                "id": "tabs",
+                "type": "tabs",
+                "tabs": [
+                    {
+                        "id": "fundamentos",
+                        "label": "Fundamentos",
+                        "content": [
+                            {
+                                "id": "fundamentos_1",
+                                "type": "card",
+                                "title": "A Formação da Armadura",
+                                "text": "O corpo não é moldado apenas pela genética. Ele reflete as necessidades básicas vividas em 5 fases de desenvolvimento. Se a necessidade não foi atendida, o corpo criou uma defesa física e comportamental.",
+                                "buttonText": "Marcar como lido"
+                            },
+                            {
+                                "id": "fundamentos_key",
+                                "type": "highlight_card",
+                                "title": "Conceito Chave: O Processo de Mielinização",
+                                "text": "Ocorre do útero aos 5 anos. Cada etapa molda uma parte do corpo e define um traço de caráter predominante.",
+                                "buttonText": "Entendi o conceito",
+                                "style": "blue"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "tracos_carater",
+                        "label": "Traços de Caráter",
+                        "content": [
+                            {
+                                "id": "esquizoide",
+                                "type": "trait_card",
+                                "name": "1. O ESQUIZOIDE",
+                                "archetype": "A Mente Brilhante",
+                                "icon": "Brain",
+                                "color": "text-purple-500",
+                                "body": "Magro, alongado, cheio de 'quinas'. Cabeça grande.",
+                                "pain": "Rejeição (Útero)",
+                                "power": "Criatividade, lógica e ideias geniais.",
+                                "story": "O Tiago: Gênio da computação que queria ficar invisível.",
+                                "deal": "Respeite a 'caverna' dele.",
+                                "buttonText": "Marcar como estudado"
+                            },
+                            {
+                                "id": "oral",
+                                "type": "trait_card",
+                                "name": "2. O ORAL",
+                                "archetype": "O Sentir e a Conexão",
+                                "icon": "Heart",
+                                "color": "text-pink-500",
+                                "body": "Formas arredondadas, macias. Olhar 'pidão'.",
+                                "pain": "Abandono (Amamentação)",
+                                "power": "Comunicação, acolhimento e sensibilidade.",
+                                "story": "A Cláudia: Sentia um 'buraco no peito' e precisava ser vista.",
+                                "deal": "Ofereça colo e escuta.",
+                                "buttonText": "Marcar como estudado"
+                            },
+                            {
+                                "id": "psicopata",
+                                "type": "trait_card",
+                                "name": "3. O PSICOPATA",
+                                "archetype": "O Líder Articulador",
+                                "icon": "Trophy",
+                                "color": "text-amber-500",
+                                "body": "Triângulo invertido. Ombros largos, quadril estreito.",
+                                "pain": "Manipulação (Primeiros passos)",
+                                "power": "Liderança, vendas e negociação.",
+                                "story": "O Marcos: Só ganhava aplausos se fizesse 'gracinha'.",
+                                "deal": "Mostre o 'ganha-ganha'.",
+                                "buttonText": "Marcar como estudado"
+                            },
+                            {
+                                "id": "masoquista",
+                                "type": "trait_card",
+                                "name": "4. O MASOQUISTA",
+                                "archetype": "O Cofre Forte",
+                                "icon": "Shield",
+                                "color": "text-slate-600",
+                                "body": "Quadrado, compacto. Bumbum travado/achatado.",
+                                "pain": "Humilhação (Desfralde)",
+                                "power": "Planejamento, consistência e lealdade.",
+                                "story": "A Ana: Carregava a família nas costas.",
+                                "deal": "Nunca exponha em público.",
+                                "buttonText": "Marcar como estudado"
+                            },
+                            {
+                                "id": "rigido",
+                                "type": "trait_card",
+                                "name": "5. O RÍGIDO",
+                                "archetype": "A Perfeição Competitiva",
+                                "icon": "Star",
+                                "color": "text-red-500",
+                                "body": "Harmônico, curvas de violão. Atraente.",
+                                "pain": "Traição/Exclusão (Pares)",
+                                "power": "Agilidade, execução e perfeição.",
+                                "story": "A Juliana: Impecável e exausta.",
+                                "deal": "Elogie a competência e beleza.",
+                                "buttonText": "Marcar como estudado"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "alerta_saude",
+                        "label": "Alerta Saúde",
+                        "content": [
+                            {
+                                "id": "alerta_saude_content",
+                                "type": "alert_card",
+                                "title": "⚠️ O Grito do Corpo",
+                                "subtitle": "Quando o traço entra em sofrimento",
+                                "text": "Você aprendeu a ler o formato. Mas o que acontece quando ignoramos quem somos? O corpo grita em forma de DOENÇA.",
+                                "list": [
+                                    "Gastrite e Refluxo",
+                                    "Enxaqueca constante",
+                                    "Dores nas costas que não passam",
+                                    "Travamento na lombar"
+                                ],
+                                "highlightBox": "Isso não é azar. NA AULA 2, revelaremos a Causa Emocional das Doenças e o que sua dor tenta dizer.",
+                                "buttonText": "Entendi o Alerta"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "exercises-section",
+                "type": "exercise",
+                "content": {
+                    "id": "ex_analise",
+                    "title": "Dever de Casa: O Corpo Não Mente",
+                    "instructions": [
+                        "Pegue fotos antigas de família ou observe as pessoas ao seu redor hoje.",
+                        "Identifique: Quem tem as 'quinas' do Esquizoide?",
+                        "Identifique: Quem tem o 'bumbum travado' do Masoquista?",
+                        "Identifique: Quem tem o olhar 'pidão' do Oral?",
+                        "Anote suas percepções."
+                    ],
+                    "placeholder": "Anote aqui suas percepções...",
+                    "buttonText": "Marcar como Feito"
+                }
+            },
+            {
+                "id": "quiz-section",
+                "type": "quiz",
+                "title": "Teste seu Conhecimento: Qual é o Traço?",
+                "questions": [
+                    {
+                        "id": 1,
+                        "question": "Qual traço tem o corpo quadrado e o 'bumbum travado' como sinal de tensão?",
+                        "options": [
+                            "Oral",
+                            "Masoquista",
+                            "Rígido"
+                        ],
+                        "correctAnswer": "Masoquista"
+                    },
+                    {
+                        "id": 2,
+                        "question": "Quem possui o corpo em formato de triângulo invertido e gosta de liderar?",
+                        "options": [
+                            "Psicopata",
+                            "Esquizoide",
+                            "Oral"
+                        ],
+                        "correctAnswer": "Psicopata"
+                    },
+                    {
+                        "id": 3,
+                        "question": "Qual traço tem formas arredondadas e um olhar que conecta (pidão)?",
+                        "options": [
+                            "Rígido",
+                            "Oral",
+                            "Masoquista"
+                        ],
+                        "correctAnswer": "Oral"
+                    }
+                ]
+            },
+            {
+                "id": "footer",
+                "type": "footer"
+            }
+        ]
+    }
+}
