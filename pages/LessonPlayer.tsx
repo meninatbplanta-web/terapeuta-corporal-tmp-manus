@@ -6,7 +6,9 @@ import CoursePageContent from '../components/CoursePageContent';
 import LoginModal from '../components/LoginModal';
 import { isLessonAvailable, formatReleaseDate } from '../constants';
 import { LESSONS, LESSON_CONTENT, ALL_MODULES, COURSES } from '../data/lessons';
-import { TabOption } from '../types';
+import { TabOption, LessonContent } from '../types';
+import DynamicLessonContent from '../components/DynamicLessonContent';
+import novoJson from '../data/novo.json';
 
 const LessonPlayer: React.FC = () => {
   const { lessonId } = useParams<{ lessonId: string }>();
@@ -316,8 +318,9 @@ const LessonPlayer: React.FC = () => {
 
                 {/* Conteúdo da Aula 1 - Inserido do repositório analise-corporal-page */}
                 {currentLessonId === 1 && <CoursePageContent />}
+                {currentLessonId === 2 && <DynamicLessonContent data={novoJson.lesson_content as unknown as LessonContent} />}
 
-                {isContentUnlocked && currentLessonId !== 1 && (
+                {isContentUnlocked && currentLessonId !== 1 && currentLessonId !== 2 && (
                   <div>
                     {/* Simplified Tabs for Minicurso */}
                     <div className="mb-8 overflow-x-auto scrollbar-hide -mx-6 px-6 md:mx-0 md:px-0">

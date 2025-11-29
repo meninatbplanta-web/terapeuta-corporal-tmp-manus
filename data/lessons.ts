@@ -30,7 +30,7 @@ export const MINICOURSE_MODULE: Module = {
       title: "Quais doenças nascem das emoções?",
       releaseDate: `${CURRENT_YEAR}-12-03T20:00:00`,
       duration: "60:00",
-      isLocked: true,
+      isLocked: false,
     },
     {
       id: 3,
