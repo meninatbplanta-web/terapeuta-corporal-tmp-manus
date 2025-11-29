@@ -9,6 +9,7 @@ import { LESSONS, LESSON_CONTENT, ALL_MODULES, COURSES } from '../data/lessons';
 import { TabOption, LessonContent } from '../types';
 import DynamicLessonContent from '../components/DynamicLessonContent';
 import novoJson from '../data/novo.json';
+import novo2Json from '../data/novo2.json';
 
 const LessonPlayer: React.FC = () => {
   const { lessonId } = useParams<{ lessonId: string }>();
@@ -319,6 +320,7 @@ const LessonPlayer: React.FC = () => {
                 {/* Conteúdo da Aula 1 - Inserido do repositório analise-corporal-page */}
                 {currentLessonId === 1 && <CoursePageContent />}
                 {currentLessonId === 2 && <DynamicLessonContent data={novoJson.lesson_content as unknown as LessonContent} />}
+                {currentLessonId === 3 && <DynamicLessonContent data={novo2Json.lesson_content as unknown as LessonContent} />}
 
                 {isContentUnlocked && currentLessonId !== 1 && currentLessonId !== 2 && (
                   <div>

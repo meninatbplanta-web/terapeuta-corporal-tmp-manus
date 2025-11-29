@@ -1,0 +1,349 @@
+{
+    "page_structure": {
+        "banner": {
+            "image_url": "https://priscilla-moreira.com/imagens/minicurso-banner1.jpg",
+            "alt_text": "Banner do Curso - O Raio-X Invisível"
+        },
+        "header_info": {
+            "badge": {
+                "text": "MINICURSO GRATUITO",
+                "color": "green"
+            },
+            "title": "Minicurso Terapeuta Analista Corporal"
+        },
+        "lesson_list": {
+            "title": "SEU ARSENAL DE CONTEÚDO",
+            "lessons": [
+                {
+                    "id": 1,
+                    "title": "O Raio-X Invisível",
+                    "duration": "60:00",
+                    "status": "active"
+                },
+                {
+                    "id": 2,
+                    "title": "Decodificando a Causa das Doenças",
+                    "release_date": "2025-12-03T20:00:00",
+                    "status": "locked"
+                },
+                {
+                    "id": 3,
+                    "title": "Análise Corporal Ao Vivo",
+                    "release_date": "2025-12-05T20:00:00",
+                    "status": "locked"
+                },
+                {
+                    "id": 4,
+                    "title": "O Plano de Carreira (Viver de Leitura)",
+                    "release_date": "2025-12-07T15:00:00",
+                    "status": "locked"
+                }
+            ]
+        },
+        "video_player": {
+            "placeholder_text": "Aguardando Transmissão...",
+            "locked_message": {
+                "title": "🔒 ESTREIA EXCLUSIVA",
+                "text": "A aula completa será liberada dia 01/12 às 20h. Marque na agenda."
+            }
+        }
+    },
+    "lesson_content": {
+        "metadata": {
+            "title": "Aula 1: O Raio-X Invisível",
+            "subtitle": "O Mapa Exato da Mente Humana",
+            "totalSections": 11,
+            "gamification": {
+                "pointsPerSection": 50,
+                "badges": {
+                    "iniciante": {
+                        "label": "Iniciado",
+                        "icon": "🌱",
+                        "color": "bg-green-100 text-green-800",
+                        "threshold": 3
+                    },
+                    "explorador": {
+                        "label": "Investigador",
+                        "icon": "🔍",
+                        "color": "bg-blue-100 text-blue-800",
+                        "threshold": 6
+                    },
+                    "mestre": {
+                        "label": "Analista de Elite",
+                        "icon": "👑",
+                        "color": "bg-purple-100 text-purple-800",
+                        "threshold": 11
+                    }
+                }
+            }
+        },
+        "header": {
+            "progressLabel": "Progresso da Missão",
+            "certificateInfo": {
+                "title": "Sobre sua Certificação:",
+                "text": "Complete todas as missões. O **Certificado Oficial** será desbloqueado automaticamente após a **Aula 4** para aqueles que concluírem 100% do treinamento."
+            }
+        },
+        "sections": [
+            {
+                "id": "intro",
+                "type": "intro",
+                "title": "Bem-vindo ao mundo que ninguém te contou que existia",
+                "subtitle": "O corpo explica tudo o que a boca tenta esconder.",
+                "content": [
+                    "Imagine olhar para qualquer pessoa e — sem que ela diga uma única palavra — saber exatamente como ela pensa, sente e age. O **Raio-X Invisível** não é mágica; é a capacidade de ler a biologia humana.",
+                    "Você está prestes a descobrir que o formato do corpo é um mapa infalível da mente. Uma vez que você aprende a enxergar isso, nunca mais conseguirá 'desver' a verdade.",
+                    "Enquanto a estreia não acontece, **não espere.** Acesse os arquivos confidenciais abaixo (Resumo e Perfis) para começar a decodificar as pessoas agora mesmo."
+                ]
+            },
+            {
+                "id": "content_index",
+                "type": "navigation",
+                "title": "Ferramentas disponíveis agora:",
+                "items": [
+                    {
+                        "label": "Briefing em Áudio",
+                        "icon": "Headphones",
+                        "target": "audio_summary"
+                    },
+                    {
+                        "label": "Replay Tático",
+                        "icon": "Video",
+                        "target": "video_summary"
+                    },
+                    {
+                        "label": "Arquivos da Mente",
+                        "icon": "BookOpen",
+                        "target": "fundamentos_1",
+                        "tab": "fundamentos"
+                    },
+                    {
+                        "label": "Os 5 Perfis",
+                        "icon": "Brain",
+                        "target": "esquizoide",
+                        "tab": "tracos_carater"
+                    },
+                    {
+                        "label": "Alerta de Risco",
+                        "icon": "AlertTriangle",
+                        "target": "alerta_saude_content",
+                        "tab": "alerta_saude"
+                    },
+                    {
+                        "label": "Missão de Campo",
+                        "icon": "FileText",
+                        "target": "exercises-section"
+                    },
+                    {
+                        "label": "Calibrar Visão",
+                        "icon": "CheckCircle2",
+                        "target": "quiz-section"
+                    }
+                ]
+            },
+            {
+                "id": "multimedia",
+                "type": "multimedia",
+                "items": [
+                    {
+                        "id": "audio_summary",
+                        "type": "audio",
+                        "title": "Briefing de Inteligência",
+                        "subtitle": "O código da aula em 12 min (Para ouvir no trânsito)",
+                        "url": "https://priscilla-moreira.com/imagens/audio-cpl1.m4a",
+                        "buttonText": "Baixar Informação"
+                    },
+                    {
+                        "id": "video_summary",
+                        "type": "video",
+                        "title": "Replay Tático: O Guia",
+                        "subtitle": "A versão visual compacta das Armaduras",
+                        "url": "https://priscilla-moreira.com/imagens/video-cpl1.mp4",
+                        "buttonText": "Visualizar Arquivo"
+                    }
+                ]
+            },
+            {
+                "id": "tabs_content",
+                "type": "tabs",
+                "tabs": [
+                    {
+                        "id": "fundamentos",
+                        "label": "Arquivos da Mente",
+                        "content": [
+                            {
+                                "id": "fundamentos_1",
+                                "type": "card",
+                                "title": "A Origem da Sua Armadura",
+                                "text": "Seu corpo não foi herdado, ele foi CONSTRUÍDO para sobreviver. Em 5 fases críticas de desenvolvimento, você teve necessidades específicas. Onde a necessidade não foi atendida, o corpo criou uma defesa física. Essa defesa é quem você é hoje.",
+                                "buttonText": "Acessar Arquivo"
+                            },
+                            {
+                                "id": "fundamentos_key",
+                                "type": "highlight_card",
+                                "title": "O Código Fonte: Mielinização",
+                                "text": "Do útero aos 5 anos, seu sistema nervoso estava sendo 'encapado'. Onde a energia parou, o corpo ganhou forma. É biológico, previsível e, agora, legível por você.",
+                                "buttonText": "Entendi o Código",
+                                "style": "blue"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "tracos_carater",
+                        "label": "Os 5 Perfis",
+                        "content": [
+                            {
+                                "id": "esquizoide",
+                                "type": "trait_card",
+                                "name": "1. O ESQUIZOIDE",
+                                "archetype": "A Mente Brilhante",
+                                "icon": "Brain",
+                                "color": "purple",
+                                "body": "Magro, alongado, cheio de 'quinas'. Cabeça grande.",
+                                "pain": "Rejeição (Útero)",
+                                "power": "Criatividade genial e lógica fora da curva.",
+                                "story": "Vive no mundo das ideias. Odeia contato físico. Respeite a 'caverna' dele e ele criará soluções incríveis.",
+                                "deal": "Respeite o espaço dele."
+                            },
+                            {
+                                "id": "oral",
+                                "type": "trait_card",
+                                "name": "2. O ORAL",
+                                "archetype": "A Conexão Pura",
+                                "icon": "Heart",
+                                "color": "pink",
+                                "body": "Formas redondas, macias. Olhar que 'pede'.",
+                                "pain": "Abandono (Amamentação)",
+                                "power": "Comunicação, acolhimento e sentir o ambiente.",
+                                "story": "Sente o mundo pela pele. Tem o superpoder de acolher, mas 'morre' se ficar sozinho.",
+                                "deal": "Ofereça ouvidos e companhia."
+                            },
+                            {
+                                "id": "psicopata",
+                                "type": "trait_card",
+                                "name": "3. O PSICOPATA",
+                                "archetype": "O Líder Articulador",
+                                "icon": "Trophy",
+                                "color": "amber",
+                                "body": "Triângulo invertido. Ombros largos, quadril estreito.",
+                                "pain": "Manipulação (Primeiros passos)",
+                                "power": "Liderança, vendas e negociação.",
+                                "story": "Não sente, analisa. Nasceu para comandar. Para ele, tudo é uma troca. Mostre vantagem.",
+                                "deal": "Mostre o ganha-ganha."
+                            },
+                            {
+                                "id": "masoquista",
+                                "type": "trait_card",
+                                "name": "4. O MASOQUISTA",
+                                "archetype": "O Cofre Forte",
+                                "icon": "Shield",
+                                "color": "slate",
+                                "body": "Quadrado, compacto, trancado. Bumbum achatado.",
+                                "pain": "Humilhação (Desfralde)",
+                                "power": "Planejamento, consistência e força bruta.",
+                                "story": "Suporta cargas que quebrariam outros. Leal e detalhista, mas trava se sentir risco de errar.",
+                                "deal": "Passe segurança e não exponha."
+                            },
+                            {
+                                "id": "rigido",
+                                "type": "trait_card",
+                                "name": "5. O RÍGIDO",
+                                "archetype": "O Executor Perfeito",
+                                "icon": "Star",
+                                "color": "red",
+                                "body": "Harmônico, curvas de violão. Corpo de atleta/modelo.",
+                                "pain": "Traição/Exclusão (Pares)",
+                                "power": "Agilidade, competição e execução impecável.",
+                                "story": "Busca a perfeição para nunca ser trocado. É o executor implacável.",
+                                "deal": "Elogie a competência."
+                            }
+                        ]
+                    },
+                    {
+                        "id": "alerta_saude",
+                        "label": "Alerta de Risco",
+                        "content": [
+                            {
+                                "id": "alerta_saude_content",
+                                "type": "alert_card",
+                                "title": "⚠️ Quando o Sistema Entra em Colapso",
+                                "subtitle": "A dor física é apenas o mensageiro",
+                                "text": "Você aprendeu a ler o formato. Mas o que acontece quando você força sua armadura? O corpo grita. Gastrite, enxaqueca, dores na coluna... não são azar. São seus traços sufocando.",
+                                "list": [
+                                    "Gastrite e Refluxo",
+                                    "Enxaqueca constante",
+                                    "Dores nas costas crônicas",
+                                    "Travamento na lombar"
+                                ],
+                                "highlightBox": "Na AULA 2, vamos decodificar a CAUSA EMOCIONAL DAS DOENÇAS. Descubra o que sua dor tenta dizer.",
+                                "buttonText": "Entendi o Alerta"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "exercises",
+                "type": "exercise",
+                "title": "Missão de Campo",
+                "subtitle": "Ativar Raio-X no Mundo Real",
+                "content": {
+                    "id": "ex_analise",
+                    "title": "Missão: O Corpo Não Mente",
+                    "instructions": [
+                        "Não precisa falar nada. Apenas observe (fotos ou pessoas ao vivo).",
+                        "Localize as 'Quinas' (Esquizoide).",
+                        "Ache o corpo 'Quadrado' (Masoquista).",
+                        "Busque o olhar de 'criança pidona' (Oral).",
+                        "Registre o que você viu no campo abaixo."
+                    ],
+                    "placeholder": "Relatório da missão: O que você identificou?",
+                    "buttonText": "Missão Cumprida"
+                }
+            },
+            {
+                "id": "quiz",
+                "type": "quiz",
+                "title": "Calibragem de Visão",
+                "questions": [
+                    {
+                        "id": 1,
+                        "question": "Identificação Visual: Qual traço possui o corpo quadrado e 'travado'?",
+                        "options": [
+                            "Oral",
+                            "Masoquista",
+                            "Rígido"
+                        ],
+                        "correctAnswer": "Masoquista"
+                    },
+                    {
+                        "id": 2,
+                        "question": "Identificação de Liderança: Quem tem o corpo em triângulo invertido?",
+                        "options": [
+                            "Psicopata",
+                            "Esquizoide",
+                            "Oral"
+                        ],
+                        "correctAnswer": "Psicopata"
+                    },
+                    {
+                        "id": 3,
+                        "question": "Conexão Emocional: Qual traço tem formas arredondadas e olhar que conecta?",
+                        "options": [
+                            "Rígido",
+                            "Oral",
+                            "Masoquista"
+                        ],
+                        "correctAnswer": "Oral"
+                    }
+                ]
+            },
+            {
+                "id": "footer",
+                "type": "footer",
+                "title": "Status da Missão",
+                "subtitle": "Continue avançando para liberar seu certificado."
+            }
+        ]
+    }
+}
