@@ -4,7 +4,7 @@ import { Button } from "../components/ui/button";
 import { Progress } from "../components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
 import * as Icons from "lucide-react";
-import { LessonContent, Section, CardContent as CardContentType, MultimediaItem, PageStructure } from "../types";
+import { LessonContent, Section, CardContent as CardContentType, MultimediaItem, PageStructure, BadgeConfig } from "../types";
 
 interface DynamicLessonContentProps {
     data: LessonContent;
@@ -64,7 +64,8 @@ const DynamicLessonContent: React.FC<DynamicLessonContentProps> = ({ data, pageS
 
         if (badgeConfig) {
             Object.entries(badgeConfig).forEach(([key, config]) => {
-                if (completedCount >= config.threshold && !newBadges.includes(key)) {
+                const badge = config as BadgeConfig;
+                if (completedCount >= badge.threshold && !newBadges.includes(key)) {
                     newBadges.push(key);
                     hasChanges = true;
                 }

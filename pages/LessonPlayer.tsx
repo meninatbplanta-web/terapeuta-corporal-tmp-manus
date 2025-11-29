@@ -8,10 +8,10 @@ import { isLessonAvailable, formatReleaseDate } from '../constants';
 import { LESSONS, LESSON_CONTENT, ALL_MODULES, COURSES } from '../data/lessons';
 import { TabOption, LessonContent, FullLessonData, PageStructure } from '../types';
 import DynamicLessonContent from '../components/DynamicLessonContent';
-import novoJson from '../data/novo.json';
-import novo2Json from '../data/novo2.json';
-import aula4Json from '../data/aula4.json';
 import aula1Json from '../data/aula1.json';
+import aula2Json from '../data/aula2.json';
+import aula3Json from '../data/aula3.json';
+import aula4Json from '../data/aula4.json';
 
 const LessonPlayer: React.FC = () => {
   const { lessonId } = useParams<{ lessonId: string }>();
@@ -31,8 +31,8 @@ const LessonPlayer: React.FC = () => {
   // Map lessons to their JSON data
   const lessonDataMap: Record<number, FullLessonData> = {
     1: aula1Json as unknown as FullLessonData,
-    2: novoJson as unknown as FullLessonData,
-    3: novo2Json as unknown as FullLessonData,
+    2: aula2Json as unknown as FullLessonData,
+    3: aula3Json as unknown as FullLessonData,
     4: aula4Json as unknown as FullLessonData,
   };
 
@@ -310,8 +310,11 @@ const LessonPlayer: React.FC = () => {
 
                 {/* Conteúdo Dinâmico para todas as aulas */}
                 {currentLessonId === 1 && <DynamicLessonContent data={aula1Json.lesson_content as unknown as LessonContent} pageStructure={aula1Json.page_structure as unknown as PageStructure} />}
-                {currentLessonId === 2 && <DynamicLessonContent data={novoJson.lesson_content as unknown as LessonContent} />}
-                {currentLessonId === 3 && <DynamicLessonContent data={novo2Json.lesson_content as unknown as LessonContent} />}
+                {currentLessonId === 2 && <DynamicLessonContent
+                  data={aula2Json.lesson_content as unknown as LessonContent}
+                  pageStructure={aula2Json.page_structure as unknown as PageStructure}
+                />}
+                {currentLessonId === 3 && <DynamicLessonContent data={aula3Json.lesson_content as unknown as LessonContent} />}
                 {currentLessonId === 4 && <DynamicLessonContent
                   data={aula4Json.lesson_content as unknown as LessonContent}
                   pageStructure={aula4Json.page_structure as unknown as PageStructure}
